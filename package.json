@@ -1,0 +1,32 @@
+{
+  "name": "meanapp",
+  "version": "1.0.0",
+  "description": "MEAN app (angular 2)",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodejs index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OneHedgehog/meanapp.git"
+  },
+  "keywords": [
+    "MEAN",
+    "angular",
+    "2",
+    "mongoDB",
+    "express",
+    "javascript",
+    "nodejs"
+  ],
+  "author": "OneHedgehog",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OneHedgehog/meanapp/issues"
+  },
+  "homepage": "https://github.com/OneHedgehog/meanapp#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^5.0.0"
+  }
+}
