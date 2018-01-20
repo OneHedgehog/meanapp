@@ -6,23 +6,22 @@ const User = require('../models/user'); // Import User Model Schema
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
 
-let error = require('../error');
-
 router.post('/register',
     //validation module
     [
         check('email')
             .isEmail().withMessage('must be a valid email')
             .trim()
+            .isLength({ min: 1, max: 200 }).withMessage('invalid email length. Must be less then 200 symblos')
             .normalizeEmail(),
         check('username')
             .exists().withMessage('username don\'t exist')
             .trim() //username can't be space
-            .isLength({ min: 1 }).withMessage('empty username'),
+            .isLength({ min: 1, max: 200 }).withMessage('invalid username length. Must be less then 200 symblos'),
 
         check('password')
             .exists().withMessage('password don\'t exist')
-            .isLength({ min: 1 }).withMessage('empty password'),
+            .isLength({ min: 1, max: 200 }).withMessage('invalid password length. Must be less then 200 symblos'),
 
         //hidden input with password + salt
         check('hash')
@@ -38,8 +37,7 @@ router.post('/register',
         //valid POST data obj
         const validPostData = matchedData(req);
 
-        //if( md5(cuser.password + salt !== hash ))
-        console.log( validPostData);
+        //TODO if( bcrypt(cuser.password + salt !== hash ))
 
         let user = new User({
             email: validPostData.email.toLowerCase(),
@@ -61,9 +59,13 @@ router.post('/register',
                 });
                 res.end();
             }
+            //need else, because it's async functionality
+            else{
+                res.json({dbmessage: 'user saved'})
+            }
 
         });
-        res.json({dbmessage: 'user saved'})
+
 
 });
 

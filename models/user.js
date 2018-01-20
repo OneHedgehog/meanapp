@@ -22,13 +22,24 @@ const userSchema = new Schema({
     }
 });
 
-// userSchema.pre('save', function(next){
-//     // if (!this.isModified('password')){
-//     //     next();
-//     // }
-//     // bcrypt.hash("bacon", null, null, function(err, hash) {
-//     //     this.password = 'jb';
-//     // });
-// });
+userSchema.pre('save', function(next, done){
+    let self = this;
+
+    if(!this.isModified('password')){
+        done();
+    }
+
+    bcrypt.hash(self.password + 'NrnLvzkzQ2n6bzNcGuLQ8GMUDTR89X2yYZ9kq5J6', null, null, function(err, hash) {
+        if(err) return next(err);
+        self.password = hash;
+    });
+
+    next()
+});
+
+
+userSchema.methods.comparePassword = (password) => {
+    bcrypt.compareSync(password + 'NrnLvzkzQ2n6bzNcGuLQ8GMUDTR89X2yYZ9kq5J6', this.password);
+};
 
 module.exports = mongoose.model('User', userSchema);
