@@ -21,14 +21,27 @@ export class RegisterComponent implements OnInit {
 
   createForm(){
     this.form = this.formBuilder.group({
-        email: ['', Validators.required],
-        username: '',
-        password: ''
+        email: ['', Validators.compose([
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(200),
+            Validators.email
+        ])],
+        username: ['', Validators.compose([
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(200),
+        ])],
+        password: ['', Validators.compose([
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(200),
+        ])],
     });
   }
 
   onRegisterSubmit(){
-    console.log('fs');
+    console.log('fd');
   }
 
 }
