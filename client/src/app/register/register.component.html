@@ -1,0 +1,42 @@
+<h1 class="page-header">Register</h1>
+<form [formGroup]="form" (submit) = "onRegisterSubmit()">
+  <div class="form-row">
+    <div class="col-md-12 mb-12">
+      <label for="email">Email</label>
+      <input type="text" class="form-control" [ngClass] = "{'is-invalid':(form.controls.email.errors && form.controls.email.dirty), 'is-valid': !form.controls.email.errors}" id="email" placeholder="Email" formControlName="email" required>
+      <div class="valid-feedback">
+        email is valid
+      </div>
+      <div class="invalid-feedback">
+        please, provide a valid email
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-12 mb-12">
+      <label for="email">Username</label>
+      <input type="text" class="form-control" [ngClass] = "{'is-invalid':(form.controls.username.errors && form.controls.username.dirty), 'is-valid': !form.controls.username.errors}" id="username" placeholder="Username" formControlName="username" required>
+      <div class="valid-feedback">
+        username is valid
+      </div>
+      <div class="invalid-feedback">
+        please, provide a valid username ( more then 4 symbols )
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-12 mb-12">
+      <label for="password">Password</label>
+      <input type="text" class="form-control" [ngClass] = "{'is-invalid':(form.controls.password.errors && form.controls.password.dirty), 'is-valid': !form.controls.password.errors}" id="password" placeholder="Password" formControlName="password" required>
+      <div class="valid-feedback">
+        password is valid
+      </div>
+      <div class="invalid-feedback">
+        please, provide a valid password ( more then 4 symbols )
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-primary" [disabled]="form.status == 'INVALID'" type="submit">Submit form</button>
+</form>
+
