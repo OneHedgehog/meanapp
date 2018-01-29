@@ -1,42 +1,74 @@
 <h1 class="page-header">Register</h1>
-<form [formGroup]="form" (submit) = "onRegisterSubmit()">
+<div *ngIf="res" class="alert {{cssclass}}" role="alert">
+  {{mes}}
+</div>
+<form [formGroup]="form" (submit)="onRegisterSubmit()">
   <div class="form-row">
     <div class="col-md-12 mb-12">
       <label for="email">Email</label>
-      <input type="text" class="form-control" [ngClass] = "{'is-invalid':(form.controls.email.errors && form.controls.email.dirty), 'is-valid': !form.controls.email.errors}" id="email" placeholder="Email" formControlName="email" required>
-      <div class="valid-feedback">
-        email is valid
-      </div>
-      <div class="invalid-feedback">
-        please, provide a valid email
-      </div>
+      <span *ngIf="!form.controls.email.errors" class="badge badge{{email_cssclass}}">{{email_mes}}</span>
+      <input type="text"   class="form-control" (keyup)="checkEmail()"  [ngClass] = "{'is-invalid':( (form.controls.email.errors || !email_exist) && form.controls.email.dirty), 'is-valid': !form.controls.email.errors && email_exist }" id="email" placeholder="Email" formControlName="email">
+      <ul class="valid-feedback">
+        <li>email is valid</li>
+      </ul>
+      <ul *ngIf ="form.controls.email.errors" class="invalid-feedback">
+        <li *ngIf = "form.controls.email.errors.minlength">
+          email length must be more, then 4 symbols
+        </li>
+        <li *ngIf = "form.controls.email.errors.maxlength">
+          email length must be less, then 40 symbols
+        </li>
+        <li *ngIf = "form.controls.email.errors.email">
+          email should be valid ( with '@' symbol)
+        </li>
+        <li *ngIf = "form.controls.email.errors.pattern">
+          non-valid email
+        </li>
+      </ul>
     </div>
   </div>
   <div class="form-row">
     <div class="col-md-12 mb-12">
-      <label for="email">Username</label>
-      <input type="text" class="form-control" [ngClass] = "{'is-invalid':(form.controls.username.errors && form.controls.username.dirty), 'is-valid': !form.controls.username.errors}" id="username" placeholder="Username" formControlName="username" required>
-      <div class="valid-feedback">
-        username is valid
-      </div>
-      <div class="invalid-feedback">
-        please, provide a valid username ( more then 4 symbols )
-      </div>
+      <label for="username">Username</label>
+      <span *ngIf="form.controls.username.value" class="badge badge{{user_cssclass}}">{{user_mes}}</span>
+      <input type="text" class="form-control" (keyup)="checkUser()" [ngClass] = "{'is-invalid':( (form.controls.username.errors || !user_exist)  && form.controls.username.dirty), 'is-valid': (!form.controls.username.errors && user_exist)}" id="username" placeholder="Username" formControlName="username" required>
+      <ul class="valid-feedback">
+        <li>username is valid</li>
+      </ul>
+      <ul *ngIf ="form.controls.username.errors" class="invalid-feedback">
+        <li *ngIf = "form.controls.username.errors.required">
+          empty username
+        </li>
+        <li *ngIf = "form.controls.username.errors.minlength">
+          username length must be more, then 1 symbol
+        </li>
+        <li *ngIf = "form.controls.username.errors.maxlength">
+          username length must be less, then 40 symbols
+        </li>
+      </ul>
     </div>
   </div>
   <div class="form-row">
     <div class="col-md-12 mb-12">
       <label for="password">Password</label>
       <input type="text" class="form-control" [ngClass] = "{'is-invalid':(form.controls.password.errors && form.controls.password.dirty), 'is-valid': !form.controls.password.errors}" id="password" placeholder="Password" formControlName="password" required>
-      <div class="valid-feedback">
-        password is valid
-      </div>
-      <div class="invalid-feedback">
-        please, provide a valid password ( more then 4 symbols )
-      </div>
+      <ul class="valid-feedback">
+        <li>password is valid</li>
+      </ul>
+      <ul *ngIf ="form.controls.password.errors" class="invalid-feedback">
+        <li *ngIf = "form.controls.password.errors.required">
+          password username
+        </li>
+        <li *ngIf = "form.controls.password.errors.minlength">
+          password length must be more, then 4 symbols
+        </li>
+        <li *ngIf = "form.controls.password.errors.maxlength">
+          password length must be less, then 200 symbols
+        </li>
+      </ul>
     </div>
   </div>
 
-  <button class="btn btn-primary" [disabled]="form.status == 'INVALID'" type="submit">Submit form</button>
+  <button class="btn btn-primary" [disabled]="(form.status == 'INVALID' || !user_exist || !email_exist)">Submit form</button>
 </form>
 

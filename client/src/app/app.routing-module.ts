@@ -18,6 +18,10 @@ const appRoutes: Routes = [
         path: 'register',
         component: RegisterComponent
     },
+    {
+        path: 'login',
+        component: RegisterComponent
+    },
 ];
 
 @NgModule({

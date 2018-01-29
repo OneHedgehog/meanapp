@@ -25,6 +25,23 @@ mongoose.connect(config.uri, (err)=>{
     console.log('Succefully connect');
 });
 
+// Add headers
+app.use(function (req, res, next) {
+
+    //Connected to
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+
+    //Allowed request methods
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    //Allowed request headers
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true to include cookies in the requests sent
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    next();
+});
 
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/auth', auth);
