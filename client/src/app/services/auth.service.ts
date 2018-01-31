@@ -5,6 +5,12 @@ const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+const authToken = {
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+    });
+};
+
 @Injectable()
 export class AuthService {
 
@@ -24,6 +30,10 @@ export class AuthService {
 
     checkEmail(email){
         return this.http.get(  this.devHost +  '/auth/emailcheck/' + email);
+    }
+
+    login(userData){
+        return this.http.post(  this.devHost +  '/login', JSON.stringify(userData), httpOptions);
     }
 
 }

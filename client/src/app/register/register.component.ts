@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService} from '../services/auth.service';
-import { Router } from "@angular/router"
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -77,7 +77,7 @@ export class RegisterComponent implements OnInit {
                   this.form.controls['password'].disable();
                   this.form.controls['email'].disable();
 
-                  this.router.navigate(['/login']);
+                  this.router.navigate(['/dashboard']);
               }
           });
   }
