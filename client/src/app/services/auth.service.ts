@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+
 @Injectable()
 export class AuthService {
 
   devHost = 'http://localhost:8080';
+  authHeaders;
 
   constructor(
-      private http: HttpClient
+      private http: HttpClient,
+      private router: Router
     ) {}
 
     registerUser(userData){
@@ -24,6 +28,35 @@ export class AuthService {
 
     checkEmail(email){
         return this.http.get(  this.devHost +  '/auth/emailcheck/' + email);
+    }
+
+    login(userData){
+        return this.http.post(  this.devHost +  '/login', JSON.stringify(userData), httpOptions);
+    }
+
+    //if user login
+    createAuthHeaders(){
+        const user_id = sessionStorage.getItem('user_id');
+        if(!user_id){
+            this.router.navigate(['/login']);
+        }
+        this.authHeaders = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'authid':  sessionStorage.getItem('user_id')
+                })
+        };
+
+    }
+
+    getProfile(){
+        this.createAuthHeaders();
+        return this.http.get(this.devHost +  '/profile/data', this.authHeaders);
+    }
+
+    logout(){
+        sessionStorage.removeItem('user_id');
+        this.router.navigate(['/login']);
     }
 
 }

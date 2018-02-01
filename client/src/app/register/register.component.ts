@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService} from '../services/auth.service';
-import { Router } from "@angular/router"
+import { Router } from '@angular/router';
+import { SharedService} from "../services/shared.service";
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,8 @@ export class RegisterComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private authService: AuthService,
-      private router: Router
+      private router: Router,
+      private sharedService: SharedService
   ) {
 
   }
@@ -77,7 +79,9 @@ export class RegisterComponent implements OnInit {
                   this.form.controls['password'].disable();
                   this.form.controls['email'].disable();
 
-                  this.router.navigate(['/login']);
+                  sessionStorage.setItem('user_id', data.user._id);
+                  this.sharedService.IsUserLoggedIn.next(true);
+                  this.router.navigate(['/dashboard']);
               }
           });
   }

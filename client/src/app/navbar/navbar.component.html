@@ -5,28 +5,25 @@
 true}">
         <a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
+      <li  *ngIf="isUserLoggedIn" class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" routerLink="/dashboard">Dashboard</a>
       </li>
     </ul>
 
     <ul class="navbar-nav navbar-right">
-      <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link" routerLink="/">Contact</a>
-      </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
+      <li *ngIf="isUserLoggedIn" class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" routerLink="/profile">Profile</a>
       </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
+      <li *ngIf="isUserLoggedIn" class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" routerLink="/blog">Blog</a>
       </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
+      <li *ngIf="!isUserLoggedIn" class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" routerLink="/login">Login</a>
       </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
-        <a class="nav-link" routerLink="/logout">Logout</a>
+      <li *ngIf="isUserLoggedIn" class="nav-item" [routerLinkActive]="['active']">
+        <a class="nav-link" (click)="logout()">Logout</a>
       </li>
-      <li class="nav-item" [routerLinkActive]="['active']">
+      <li *ngIf="!isUserLoggedIn" class="nav-item" [routerLinkActive]="['active']">
         <a class="nav-link" routerLink="/register">Register</a>
       </li>
     </ul>

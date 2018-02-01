@@ -1,0 +1,32 @@
+<div *ngIf="submitted" class="alert {{cssclass}}" role="alert">
+  {{ mes  }}
+</div>
+<form [formGroup]="form" (ngSubmit)="onLoginSubmit()">
+  <div class="form-row">
+    <div class="col-md-12 mb-12">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" [ngClass]="{ 'is-invalid' : form.controls.login.errors && form.controls.login.dirty, 'is-valid' : !form.controls.login.errors}" id="username" placeholder="username" formControlName="login" required>
+      <ul class="valid-feedback">
+        <li>valid login</li>
+      </ul>
+      <ul *ngIf="form.controls.login.errors" class="invalid-feedback">
+        <li *ngIf="form.controls.login.errors.required">empty login</li>
+        <li *ngIf="form.controls.login.errors.minlength">login should be more, then 2 symbols</li>
+        <li *ngIf="form.controls.login.errors.maxlength">to long login</li>
+      </ul>
+    </div>
+    <div class="col-md-12 mb-12">
+      <label for="password">Password</label>
+      <input type="text" class="form-control" [ngClass]="{ 'is-invalid' : form.controls.password.errors && form.controls.password.dirty, 'is-valid' : !form.controls.password.errors}" id="password" placeholder="password" formControlName="password" required>
+      <ul class="valid-feedback">
+        <li>valid password</li>
+      </ul>
+      <ul *ngIf="form.controls.password.errors" class="invalid-feedback">
+        <li *ngIf="form.controls.password.errors.required">empty password</li>
+        <li *ngIf="form.controls.password.errors.minlength">login should be more, then 4 symbols</li>
+        <li *ngIf="form.controls.password.errors.maxlength">to long password</li>
+      </ul>
+    </div>
+  </div>
+  <button class="btn btn-primary" [disabled] = "form.status == 'INVALID'">Submit</button>
+</form>
