@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const bcrypt = require('bcrypt-nodejs');
+let sha1 = require('sha1');
 
 const userSchema = new Schema({
     email: {
@@ -29,17 +29,9 @@ userSchema.pre('save', function(next, done){
         done();
     }
 
-    bcrypt.hash(self.password + 'NrnLvzkzQ2n6bzNcGuLQ8GMUDTR89X2yYZ9kq5J6', null, null, function(err, hash) {
-        if(err) return next(err);
-        self.password = hash;
-    });
-
+    self.password = sha1(self.password + 'NrnLvzkzQ2n6bzNcGuLQ8GMUDTR89X2yYZ9kq5J6');
     next()
 });
 
-
-userSchema.methods.comparePassword = (password) => {
-    bcrypt.compareSync(password + 'NrnLvzkzQ2n6bzNcGuLQ8GMUDTR89X2yYZ9kq5J6', this.password);
-};
 
 module.exports = mongoose.model('User', userSchema);

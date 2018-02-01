@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
 const config = require('./config/database');
@@ -13,7 +14,8 @@ app.use(bodyParser.json());
 
 //routes
 const auth = require('./routes/auth');
-
+const login = require('./routes/login');
+const profile = require('./routes/profile');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.uri, (err)=>{
@@ -25,26 +27,13 @@ mongoose.connect(config.uri, (err)=>{
     console.log('Succefully connect');
 });
 
-// Add headers
-app.use(function (req, res, next) {
-
-    //Connected to
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-
-    //Allowed request methods
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-    //Allowed request headers
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-    // Set to true to include cookies in the requests sent
-    res.setHeader('Access-Control-Allow-Credentials', true);
-
-    next();
-});
+app.use(cors());
 
 app.use(express.static(__dirname + '/client/dist/'));
 app.use('/auth', auth);
+app.use('/login', login);
+app.use('/profile', profile);
+
 
 app.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname + '/client/dist/'));

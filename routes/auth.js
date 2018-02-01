@@ -53,7 +53,7 @@ router.post('/register',
         });
 
 
-        user.save( (err) => {
+        user.save( (err, user) => {
             if(err){
                 error.error.msg = errObj.dbError(err);
                 res.json(error);
@@ -61,7 +61,10 @@ router.post('/register',
             }
             //need else, because it's async functionality
             else{
-                res.json({dbmessage: 'user saved'})
+                res.json({
+                    dbmessage: 'user saved',
+                    user: user
+                })
             }
 
         });
@@ -101,7 +104,9 @@ router.get('/usercheck/:user', (req, res)=>{
             res.json(error);
             res.end();
         }else{
-            res.json({successmes: 'user availeble'});
+            res.json({
+                successmes: 'user availeble',
+            });
             res.end();
         }
     });
