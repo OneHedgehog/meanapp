@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService} from '../services/auth.service';
+import { SharedService} from "../services/shared.service";
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(
       private formBuilder: FormBuilder,
       private authService: AuthService,
-      private router: Router
+      private router: Router,
+      private sharedService: SharedService
   ) { }
 
 
@@ -57,7 +59,6 @@ export class LoginComponent implements OnInit {
                 this.mes = data.error.msg;
                 this.cssclass = 'alert-danger';
             }else{
-                console.log(data);
                 this.mes = 'succefully login';
                 this.cssclass = 'alert-success';
 
@@ -65,6 +66,7 @@ export class LoginComponent implements OnInit {
                 this.form.controls['password'].disable();
 
                 sessionStorage.setItem('user_id', data._id);
+                this.sharedService.IsUserLoggedIn.next(true);
                 this.router.navigate(['/dashboard']);
             }
         } );
