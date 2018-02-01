@@ -18,7 +18,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.authService.getProfile()
-        .subscribe( data => {
+        .subscribe( profileData => {
+            let data: any = profileData;
            if(data.success == false){
                this.router.navigate(['/login']);
            }else{

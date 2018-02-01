@@ -66,7 +66,8 @@ export class RegisterComponent implements OnInit {
       };
 
       this.authService.registerUser(user)
-          .subscribe( data => {
+          .subscribe( userData => {
+              let data: any = userData;
               this.res = data;
               if(data.error){
                   this.mes = data.error.msg;
@@ -90,7 +91,8 @@ export class RegisterComponent implements OnInit {
       const email = this.form.get('email').value;
       return this.authService.checkEmail( email)
           .subscribe(
-          (data)=>{
+          (emailCheckData)=>{
+              let data: any = emailCheckData;
               if(!data.error){
                   this.email_mes = data.successmes;
                   this.email_exist = true;
@@ -108,7 +110,8 @@ export class RegisterComponent implements OnInit {
         const username = this.form.get('username').value;
         return this.authService.checkUser(username)
             .subscribe(
-            (data)=>{
+            (userCheckData)=>{
+                let data:any = userCheckData;
                 if(!data.error){
                     this.user_mes = data.successmes;
                     this.user_exist = true;

@@ -53,9 +53,10 @@ export class LoginComponent implements OnInit {
           password: this.form.get('password').value
       };
     this.authService.login(user)
-        .subscribe( (data) => {
+        .subscribe( (userData) => {
+            let data: any = userData;
             this.submitted = true;
-            if(data.error){
+            if(data['error']){
                 this.mes = data.error.msg;
                 this.cssclass = 'alert-danger';
             }else{
