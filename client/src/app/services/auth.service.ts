@@ -36,14 +36,14 @@ export class AuthService {
 
     //if user login
     createAuthHeaders(){
-        const user_id = sessionStorage.getItem('user_id');
+        const user_id = localStorage.getItem('user_id');
         if(!user_id){
             this.router.navigate(['/login']);
         }
         this.authHeaders = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
-                'authid':  sessionStorage.getItem('user_id')
+                'authid':  localStorage.getItem('user_id')
                 })
         };
 
@@ -55,7 +55,7 @@ export class AuthService {
     }
 
     logout(){
-        sessionStorage.removeItem('user_id');
+        localStorage.removeItem('user_id');
         this.router.navigate(['/login']);
     }
 

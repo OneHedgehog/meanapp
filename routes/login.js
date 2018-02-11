@@ -55,17 +55,14 @@ router.post('/',
         if(err){
             error.error.msg = 'db error';
             res.json(error);
-            res.end();
             return;
         }
 
         if(!user){
             error.error.msg = 'Invalid login or password';
             res.json(error);
-            res.end();
         }else{
             res.json(user);
-            res.end();
         }
     });
 });

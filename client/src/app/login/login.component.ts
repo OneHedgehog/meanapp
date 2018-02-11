@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
-      if(sessionStorage.getItem('user_id')){
+      if(localStorage.getItem('user_id')){
           this.router.navigate(['/dashboard']);
       };
     this.createForm();
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
                 this.form.controls['login'].disable();
                 this.form.controls['password'].disable();
 
-                sessionStorage.setItem('user_id', data._id);
+                localStorage.setItem('user_id', data._id);
                 this.sharedService.IsUserLoggedIn.next(true);
                 this.router.navigate(['/dashboard']);
             }

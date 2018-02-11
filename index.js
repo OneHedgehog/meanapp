@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 const auth = require('./routes/auth');
 const login = require('./routes/login');
 const profile = require('./routes/profile');
+const blog = require('./routes/blog');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.uri, (err)=>{
@@ -33,7 +34,7 @@ app.use(express.static(__dirname + '/client/dist/'));
 app.use('/auth', auth);
 app.use('/login', login);
 app.use('/profile', profile);
-
+app.use('/blog', blog);
 
 app.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname + '/client/dist/'));

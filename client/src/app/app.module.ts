@@ -14,6 +14,11 @@ import { AuthService } from './services/auth.service';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SharedService} from './services/shared.service';
+import { BlogComponent } from './blog/blog.component';
+import { BlogitemComponent } from './blogitem/blogitem.component';
+import { BlogItemComponentComponent } from './blog-item-component/blog-item-component.component';
+import { NewPostFormComponent } from './new-post-form/new-post-form.component';
+import { BlogServiceService } from './services/blog-service.service';
 
 
 @NgModule({
@@ -24,7 +29,11 @@ import { SharedService} from './services/shared.service';
     DashboardComponent,
     RegisterComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    BlogComponent,
+    BlogitemComponent,
+    BlogItemComponentComponent,
+    NewPostFormComponent
   ],
   imports: [
       BrowserModule,
@@ -33,7 +42,7 @@ import { SharedService} from './services/shared.service';
       HttpClientModule,
       FlashMessagesModule.forRoot(),
   ],
-  providers: [AuthService, SharedService],
+  providers: [AuthService, SharedService, BlogServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

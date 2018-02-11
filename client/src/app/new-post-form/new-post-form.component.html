@@ -1,0 +1,27 @@
+<h1>Create your awesome post</h1>
+<div class="alert alert-{{alertData.htmlClass}}">{{alertData.mes}}</div>
+<form [formGroup]="newPostForm" (submit)="onPostFormSubmit()"  >
+  <div class="form-group">
+    <label for="post-title">Post title</label>
+    <input type="text" class="form-control" [ngClass]="{'is-invalid': newPostForm.controls.title.errors && newPostForm.controls.title.dirty, 'is-valid': newPostForm.controls.title.dirty && !newPostForm.controls.title.errors}" id="post-title" placeholder="title..." value="{{postTitle}}" formControlName="title">
+    <ul class="valid-feedback">
+      <li>Looks good!</li>
+    </ul>
+    <ul *ngIf="newPostForm.controls.title.errors" class="invalid-feedback">
+      <li *ngIf="newPostForm.controls.title.errors.required">title is req. params</li>
+      <li *ngIf="newPostForm.controls.title.errors.minlength">length should be more then 2 symbols</li>
+    </ul>
+  </div>
+  <div class="form-group">
+    <label for="textBody">Example textarea</label>
+    <textarea value="{{this.postBody}}" class="form-control" [ngClass]="{'is-invalid': newPostForm.controls.body.errors && newPostForm.controls.body.dirty, 'is-valid': newPostForm.controls.body.dirty && !newPostForm.controls.body.errors}" id="textBody" rows="5" formControlName="body"></textarea>
+    <ul class="valid-feedback">
+      <li>Looks good!</li>
+    </ul>
+    <ul *ngIf="newPostForm.controls.body.errors" class="invalid-feedback">
+      <li *ngIf="newPostForm.controls.body.errors.minlength">Lenght should be more then 5 symbols</li>
+      <li *ngIf="newPostForm.controls.body.errors.required">body is required</li>
+    </ul>
+  </div>
+  <button class="btn btn-success">Create Post</button>
+</form>

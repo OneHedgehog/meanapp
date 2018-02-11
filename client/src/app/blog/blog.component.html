@@ -1,0 +1,10 @@
+<div class="list-group">
+    <br>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <a routerLink="/blog/new-post/new" class="btn btn-outline-secondary">New Post</a>
+        <button type="button" class="btn btn-outline-secondary">Reload  <i class="fas fa-sync-alt"></i>
+        </button>
+    </div>
+    <br>
+    <app-blogitem *ngFor="let post of posts" [post]="post"></app-blogitem>
+</div>

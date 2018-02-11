@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
           this.isUserLoggedIn = value;
       });
 
-      if(sessionStorage.getItem('user_id')){
+      if(localStorage.getItem('user_id')){
           this.isUserLoggedIn = true;
       }else{
           this.isUserLoggedIn = false;

@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit {
                   this.form.controls['password'].disable();
                   this.form.controls['email'].disable();
 
-                  sessionStorage.setItem('user_id', data.user._id);
+                  localStorage.setItem('user_id', data.user._id);
                   this.sharedService.IsUserLoggedIn.next(true);
                   this.router.navigate(['/dashboard']);
               }
