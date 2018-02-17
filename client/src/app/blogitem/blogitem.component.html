@@ -41,13 +41,14 @@
             </div>
           </div>
 
-          <button type="button" class="btn btn-outline-secondary"><i class="far fa-comment"></i>
-          </button>
+          <a routerLink="/blog/comment-post/{{post._id}}" class="btn btn-outline-secondary"><i class="far fa-comment"></i>
+          </a>
         </div>
       </div>
       <div class="col-md-9">
         <div class="list-group">
           <h4>Comment list</h4>
+          <app-comment-form [post_id]="post._id" [user_id]="userId" [user_name]="userName"></app-comment-form>
           <app-blog-item-component></app-blog-item-component>
         </div>
       </div>

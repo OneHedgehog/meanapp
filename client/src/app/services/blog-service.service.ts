@@ -25,11 +25,15 @@ export class BlogServiceService {
         return this.http.get(  this.devHost +  '/blog/posts') ;
     }
 
-    public getPost(id: string) : Observable<any>  {
+    public getPost(id: string): Observable<any>  {
         return this.http.get(  this.devHost +  '/blog/post/' + id);
     }
 
-    public deletePost(id: string) : Observable<any>{
+    public deletePost(id: string): Observable<any>{
         return this.http.delete( this.devHost + '/blog/post/delete/' + id);
+    }
+
+    public addPostComments(id: string, post_data: object): Observable<any>{
+        return this.http.post( this.devHost + '/blog/post/addcomment/' + id, post_data);
     }
 }

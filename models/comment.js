@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
-
-const blogSchema = new Schema({
+const commentSchema = new Schema({
+    post_id: {
+        type: String,
+    },
     authorId: {
         type: String,
         required: true
@@ -32,15 +33,7 @@ const blogSchema = new Schema({
         likedBy: String,
         date: Date
     }],
-}, { toJSON: { virtuals: true } });
-
-
-// population
-blogSchema.virtual('comments', {
-    ref: 'Comment',
-    localField: '_id',
-    foreignField: 'post_id'
 });
 
 
-module.exports = mongoose.model('Blog', blogSchema);
+module.exports = mongoose.model('Comment', commentSchema);

@@ -14,11 +14,11 @@ import { BlogServiceService} from "../services/blog-service.service";
 export class NewPostFormComponent implements OnInit {
 
     private newPostForm: FormGroup;
-    private  urlId:any;
-    private userData:any;
+    private  urlId: any;
+    private userData: any;
 
-    public postTitle:String = '';
-    public postBody:String = '';
+    public postTitle: String = '';
+    public postBody: String = '';
 
     public alertData ={
         mes: 'Edit in process',
@@ -39,10 +39,10 @@ export class NewPostFormComponent implements OnInit {
             this.urlId = params.id;
         });
 
-        //set this.userData
+        // set this.userData
         this.getProfile();
 
-        if( this.urlId != 'new'){
+        if ( this.urlId !== 'new') {
             this.setUpdatePostData();
         }
         this.createForm();
@@ -73,34 +73,35 @@ export class NewPostFormComponent implements OnInit {
             author_id: this.userData._id
         };
 
-        if(this.urlId == 'new'){
+        if(this.urlId === 'new') {
             this.blogServiceService.createBlogPost(newPost)
-                .subscribe( ( blogData: any )=> {
-                    if(blogData.error){
+                .subscribe( ( blogData: any ) => {
+                    console.log(blogData);
+                    if (blogData.error) {
                         this.alertData.htmlClass = 'danger';
                         this.alertData.mes = blogData.error;
-                    }else{
+                    }else {
                         this.alertData.htmlClass = 'success';
                         this.alertData.mes = 'Post created';
-                        this.redirectToBlog()
+                        this.redirectToBlog();
 
                     }
-                })
+                });
         }else{
             this.blogServiceService.updateBlogPost(newPost, this.urlId)
-                .subscribe( (updatedPost:any) => {
+                .subscribe( (updatedPost: any) => {
 
-                    if(updatedPost.success == false){
+                    if (updatedPost.success == false){
                         this.alertData.htmlClass = 'danger';
                         this.alertData.mes = 'can\'t update post';
                         this.redirectToBlog();
-                    }else{
+                    } else {
                         this.alertData.htmlClass = 'success';
                         this.alertData.mes = 'post updated';
                         this.redirectToBlog();
                     }
 
-                })
+                });
         }
 
     }
@@ -120,28 +121,28 @@ export class NewPostFormComponent implements OnInit {
 
     private setUpdatePostData(): void{
         this.blogServiceService.getPost(this.urlId)
-            .subscribe( (post:any) => {
-                if(post.success == false){
+            .subscribe( (post: any) => {
+                if(post.success == false) {
                     this.alertData.htmlClass = 'danger';
                     this.alertData.mes = 'Post doesn\'t exist';
 
-                    this.redirectToBlog()
+                    this.redirectToBlog();
 
-                }else{
+                } else {
 
                     this.postTitle = post.post.title;
                     this.postBody = post.post.body;
                 }
-            })
+            });
     }
 
-    private redirectToBlog():void{
+    private redirectToBlog(): void {
 
         this.newPostForm.controls['title'].disable();
         this.newPostForm.controls['body'].disable();
 
         setTimeout(() => {
-            this.router.navigate(['/blog'])
+            this.router.navigate(['/blog']);
         }, 2000);
     }
 

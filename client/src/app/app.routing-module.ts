@@ -8,6 +8,7 @@ import { LoginComponent } from "./login/login.component";
 import { ProfileComponent} from "./profile/profile.component";
 import { BlogComponent} from "./blog/blog.component";
 import { NewPostFormComponent} from "./new-post-form/new-post-form.component";
+import { CommentFormComponent} from "./comment-form/comment-form.component";
 
 const appRoutes: Routes = [
     {
@@ -37,7 +38,11 @@ const appRoutes: Routes = [
     {
         path: 'blog/new-post/:id',
         component: NewPostFormComponent
-    }
+    },
+    // {
+    //     path: 'blog/comment-post/:id',
+    //     component: CommentFormComponent
+    // }
 ];
 
 @NgModule({

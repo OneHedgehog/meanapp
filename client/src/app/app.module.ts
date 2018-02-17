@@ -19,6 +19,7 @@ import { BlogitemComponent } from './blogitem/blogitem.component';
 import { BlogItemComponentComponent } from './blog-item-component/blog-item-component.component';
 import { NewPostFormComponent } from './new-post-form/new-post-form.component';
 import { BlogServiceService } from './services/blog-service.service';
+import { CommentFormComponent } from './comment-form/comment-form.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { BlogServiceService } from './services/blog-service.service';
     BlogComponent,
     BlogitemComponent,
     BlogItemComponentComponent,
-    NewPostFormComponent
+    NewPostFormComponent,
+    CommentFormComponent
   ],
   imports: [
       BrowserModule,

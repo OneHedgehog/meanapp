@@ -9,7 +9,7 @@ import { BlogServiceService} from "../services/blog-service.service";
 })
 export class BlogComponent implements OnInit {
 
-  public posts:Array<any>;
+  public posts: Array<any>;
 
   public constructor(
       private blogServiceService: BlogServiceService,
@@ -19,10 +19,11 @@ export class BlogComponent implements OnInit {
   public ngOnInit() {
     this.blogServiceService.getPosts()
         .subscribe( (postsData: any) => {
-          if(postsData.success = false){
+          if(postsData.success === false){
             //redirect to errorPage
           }else{
-              this.posts = postsData.posts
+              console.log(postsData);
+              this.posts = postsData.posts;
           }
         });
   }

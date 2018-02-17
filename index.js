@@ -40,7 +40,7 @@ app.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname + '/client/dist/'));
 });
 
-app.listen(8080, ()=>{
+app.listen(8080, ()=> {
     console.log('listend')
 
 });

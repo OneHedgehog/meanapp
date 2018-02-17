@@ -18,10 +18,10 @@
     <ul class="valid-feedback">
       <li>Looks good!</li>
     </ul>
-    <ul *ngIf="newPostForm.controls.body.errors" class="invalid-feedback">
+    <ul *ngIf="newPostForm.status == 'INVALID' && newPostForm.controls.body.errors" class="invalid-feedback">
       <li *ngIf="newPostForm.controls.body.errors.minlength">Lenght should be more then 5 symbols</li>
       <li *ngIf="newPostForm.controls.body.errors.required">body is required</li>
     </ul>
   </div>
-  <button class="btn btn-success">Create Post</button>
+  <button class="btn btn-success" [disabled] = "newPostForm.status == 'INVALID'">Create Post</button>
 </form>

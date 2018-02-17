@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Blog = require('../models/blog'); // Import User Model Schema
+const Comment = require('../models/comment');
 
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
@@ -65,7 +66,10 @@ router.post('/create',
 
 
 router.get('/posts', (req,res) => {
-    Blog.find({}).sort([['date', -1]]).exec( (err, data) =>{
+    Blog.find({})
+        .sort([['date', -1]])
+        .populate('comments')
+        .exec( (err, data) =>{
         if(err){
             res.json({success:false, mes: errObj.validators(err)})
         }else{
@@ -128,6 +132,62 @@ router.delete('/post/delete/:id', (req, res) => {
             res.json({success: true, id: req.params.id, mes: req.params.id + 'was deleted'});
         }
     });
+});
+
+router.post('/post/addcomment/:post_id',
+    check('title')
+        .trim() //username can't be space
+        .exists().withMessage('title dones\'t exist')
+        .isLength({ min: 2, max: 200 }).withMessage('invalid title length'),
+    check('user_name')
+        .trim() //username can't be space
+        .exists().withMessage('username dones\'t exist')
+        .isLength({ min: 2, max: 200 }).withMessage('invalid username length'),
+    check('content')
+        .trim() //username can't be space
+        .exists().withMessage('body doesn\'t exist')
+        .isLength({ min: 5, max: 10000 }).withMessage('invalid body length'),
+    check('user_id')
+        .trim() //username can't be space
+        .exists().withMessage('body doesn\'t exist')
+        .isLength({ min: 24, max: 24 }).withMessage('unregistered'),
+    (req, res)=> {
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let err =  errors.mapped();
+            let mes = errObj.validators(err);
+            res.json({success: false, error: mes});
+            return;
+        }
+
+        const validPostData = matchedData(req);
+
+        if(!req.params.post_id){
+            res.json({success: false, mes: 'Invalid post_id'});
+            return;
+        }
+        validPostData.post_id = req.params.post_id;
+
+
+        let comment = new Comment({
+            authorId: validPostData.user_id,
+            post_id: validPostData.post_id,
+            authorName: validPostData.user_name,
+            title: validPostData.title,
+            body: validPostData.content
+        });
+
+        comment.save( (err, comment) => {
+            if(err){
+                res.json({success:false, mes: errObj.validators(err)})
+            }else{
+                res.json({success: true, comment: comment});
+
+                // Blog.update({ _id: validPostData.post_id }, { $set: { size: 'large' }}, callback);
+            }
+        })
+
 });
 
 
