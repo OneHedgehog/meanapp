@@ -22,7 +22,6 @@ export class BlogComponent implements OnInit {
           if(postsData.success === false){
             //redirect to errorPage
           }else{
-              console.log(postsData);
               this.posts = postsData.posts;
           }
         });

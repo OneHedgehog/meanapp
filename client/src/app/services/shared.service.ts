@@ -8,4 +8,6 @@ export class SharedService {
 
   public IsUserLoggedIn: Subject<boolean> = new Subject<boolean>();
 
+  public IsCommentCreated:  Subject<boolean> = new Subject<boolean>();
+
 }

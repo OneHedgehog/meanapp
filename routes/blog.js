@@ -183,11 +183,29 @@ router.post('/post/addcomment/:post_id',
                 res.json({success:false, mes: errObj.validators(err)})
             }else{
                 res.json({success: true, comment: comment});
-
-                // Blog.update({ _id: validPostData.post_id }, { $set: { size: 'large' }}, callback);
-            }
+                }
         })
 
+});
+
+
+router.get('/post/comments/:post_id', (req, res) => {
+
+    if(!req.params.post_id){
+        res.json({success:false, mes: 'db error'});
+        return;
+    }
+    Comment
+        .find( { post_id: req.params.post_id })
+        .sort([['date', -1]])
+        .exec((err, comments) => {
+        if(err){
+            res.json({success:false, mes: 'db error'});
+            return;
+        }
+
+        res.json(comments);
+    })
 });
 
 

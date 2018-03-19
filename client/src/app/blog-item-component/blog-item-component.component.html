@@ -1,10 +1,10 @@
 <div class="list-group-item list-group-item-action flex-column align-items-start">
   <div class="d-flex w-100 justify-content-between">
-    <h5 class="mb-1">List group item heading</h5>
-    <small class="text-muted">3 days ago</small>
+    <h5 class="mb-1">{{comment.title}}</h5>
+    <small class="text-muted">{{comment.date| date : format : short}}</small>
   </div>
-  <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-  <p class="text-muted"><b>Username</b> Ola</p>
+  <p class="mb-1">{{comment.body}}</p>
+  <p class="text-muted"><b>Username</b> {{comment.authorName}}</p>
   <hr>
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-outline-secondary"><i class="fas fa-thumbs-up"></i> 3 </button>

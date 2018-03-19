@@ -76,7 +76,6 @@ export class NewPostFormComponent implements OnInit {
         if(this.urlId === 'new') {
             this.blogServiceService.createBlogPost(newPost)
                 .subscribe( ( blogData: any ) => {
-                    console.log(blogData);
                     if (blogData.error) {
                         this.alertData.htmlClass = 'danger';
                         this.alertData.mes = blogData.error;

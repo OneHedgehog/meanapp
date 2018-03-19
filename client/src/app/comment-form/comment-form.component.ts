@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component,  EventEmitter, OnInit, Input, Output } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import { BlogServiceService} from "../services/blog-service.service";
@@ -13,6 +13,8 @@ export class CommentFormComponent implements OnInit {
   @Input() post_id;
   @Input() user_id;
   @Input() user_name;
+
+  @Output() isCommented = new EventEmitter<boolean>();
 
   private commentForm: FormGroup;
   public alertErr: string = '';
@@ -50,14 +52,16 @@ export class CommentFormComponent implements OnInit {
           user_name: this.user_name
       };
 
-      console.log(postData);
+
 
       this.blogService.addPostComments(this.post_id, postData)
           .subscribe( (data: any) => {
               if(data.success === false){
                     this.alertErr = data.mes;
+              }else{
+                  this.isCommented.emit(true);
               }
-              console.log(data);
+
           });
     }
 

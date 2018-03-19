@@ -17,6 +17,7 @@ export class BlogitemComponent implements OnInit {
     public userId: string;
     public userName: string;
     public exist = true;
+    public comments = null;
 
     constructor(private authService: AuthService,
                 private blogServiceService: BlogServiceService,
@@ -32,13 +33,14 @@ export class BlogitemComponent implements OnInit {
                     this._flashMessagesService.show('You are logged out', {cssClass: 'alert-info', timeout: 1000});
                     this.router.navigate(['/login']);
                 }
-                console.log(user);
                 this.userId = user.user._id;
                 this.userName = user.user.username;
             });
 
         this.likes = this.post.likes.length;
         this.dislikes = this.post.likes.length;
+
+        this.getPostComments();
     }
 
 
@@ -46,8 +48,14 @@ export class BlogitemComponent implements OnInit {
         this.blogServiceService.deletePost(id)
             .subscribe((deletedData) => {
 
-                console.log(deletedData);
             });
         this.exist = false;
+    }
+
+    public getPostComments() {
+        this.blogServiceService.getPostComments(this.post._id)
+            .subscribe( (comments: any) => {
+                this.comments = comments;
+            });
     }
 }

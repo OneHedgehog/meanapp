@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-blog-item-component',
@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlogItemComponentComponent implements OnInit {
 
-  constructor() { }
+   @Input() comment;
+  public constructor() { }
 
-  ngOnInit() {
+  public ngOnInit() {
+    console.log(this.comment);
   }
 
 }
