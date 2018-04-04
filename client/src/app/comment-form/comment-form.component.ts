@@ -45,6 +45,7 @@ export class CommentFormComponent implements OnInit {
     }
 
     public onFormSubmit(){
+    console.log('submitted');
       const postData: object = {
           title: this.commentForm.get('title').value,
           content: this.commentForm.get('content').value,
