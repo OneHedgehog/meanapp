@@ -11,7 +11,7 @@ export class BlogItemComponentComponent implements OnInit {
   public constructor() { }
 
   public ngOnInit() {
-    console.log(this.comment);
+
   }
 
 }

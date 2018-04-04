@@ -1,9 +1,11 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Router} from "@angular/router";
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import {BlogServiceService} from "../services/blog-service.service";
 import {AuthService} from "../services/auth.service";
 import {FlashMessagesService} from 'angular2-flash-messages';
+import {Subject} from "rxjs/Subject";
 
 @Component({
     selector: 'app-blogitem',
@@ -12,6 +14,7 @@ import {FlashMessagesService} from 'angular2-flash-messages';
 })
 export class BlogitemComponent implements OnInit {
     @Input() post;
+    public isCommented: Subject<boolean> = new BehaviorSubject(false);
     public likes: number;
     public dislikes: number;
     public userId: string;
@@ -41,6 +44,7 @@ export class BlogitemComponent implements OnInit {
         this.dislikes = this.post.likes.length;
 
         this.getPostComments();
+        this.updateComments();
     }
 
 
@@ -57,5 +61,13 @@ export class BlogitemComponent implements OnInit {
             .subscribe( (comments: any) => {
                 this.comments = comments;
             });
+    }
+
+    public updateComments(){
+      this.isCommented.subscribe( (data: boolean) => {
+          if(data){
+            this.getPostComments();
+          }
+      } )
     }
 }

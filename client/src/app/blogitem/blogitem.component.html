@@ -48,8 +48,8 @@
       <div class="col-md-9">
         <div class="list-group">
           <h4>Comment list</h4>
-          <app-comment-form [post_id]="post._id" [user_id]="userId" [user_name]="userName"></app-comment-form>
-          <app-blog-item-component *ngFor="let comment of comments" [comment]="comment"></app-blog-item-component>
+          <app-comment-form [post_id]="post._id" [user_id]="userId" [user_name]="userName" [isCommented]="isCommented"></app-comment-form>
+          <app-blog-item-component *ngFor="let comment of comments" [comment]="comment" ></app-blog-item-component>
         </div>
       </div>
     </div>

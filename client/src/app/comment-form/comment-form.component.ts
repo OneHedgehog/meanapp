@@ -1,5 +1,6 @@
 import { Component,  EventEmitter, OnInit, Input, Output } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { BlogServiceService} from "../services/blog-service.service";
 
@@ -14,7 +15,7 @@ export class CommentFormComponent implements OnInit {
   @Input() user_id;
   @Input() user_name;
 
-  @Output() isCommented = new EventEmitter<boolean>();
+  @Input() isCommented: BehaviorSubject<boolean>;
 
   private commentForm: FormGroup;
   public alertErr: string = '';
@@ -59,7 +60,7 @@ export class CommentFormComponent implements OnInit {
               if(data.success === false){
                     this.alertErr = data.mes;
               }else{
-                  this.isCommented.emit(true);
+                  this.isCommented.next(true);
               }
 
           });
