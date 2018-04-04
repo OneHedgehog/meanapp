@@ -125,11 +125,14 @@ router.put('/post/update/:id',
 
 
 router.delete('/post/delete/:id', (req, res) => {
-    Blog.remove({ _id: req.params.id }, function (err) {
+    Blog.findOneAndRemove({ _id: req.params.id }, function (err, docs) {
         if(err){
             res.json({success:false, mes: errObj.validators(err)})
         }else{
             res.json({success: true, id: req.params.id, mes: req.params.id + 'was deleted'});
+
+            //mongoose remove bug. Fixed hack
+            docs.remove();
         }
     });
 });

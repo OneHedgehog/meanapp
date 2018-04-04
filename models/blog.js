@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
-
 const blogSchema = new Schema({
     authorId: {
         type: String,
@@ -42,5 +40,9 @@ blogSchema.virtual('comments', {
     foreignField: 'post_id'
 });
 
+
+blogSchema.post('remove', function() {
+    console.log(this);
+});
 
 module.exports = mongoose.model('Blog', blogSchema);
