@@ -2,7 +2,7 @@
     <div *ngIf="alertErr" class="alert alert-danger" role="alert">
         {{alertErr}}
     </div>
-    <form [formGroup] = "commentForm" (click)="onFormSubmit()">
+    <form [formGroup] = "commentForm" (submit)="onFormSubmit()">
         <div class="form-group">
             <label for="title">Comment title</label>
             <input type="text" class="form-control" [ngClass]="{'is-invalid': commentForm.controls.title.errors && commentForm.controls.title.dirty, 'is-valid': commentForm.controls.title.dirty && !commentForm.controls.title.errors}" id="title" placeholder="comment title" formControlName="title">
