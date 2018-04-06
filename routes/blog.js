@@ -125,16 +125,19 @@ router.put('/post/update/:id',
 
 
 router.delete('/post/delete/:id', (req, res) => {
-    Blog.remove({ _id: req.params.id }, function (err) {
+    Blog.findOneAndRemove({ _id: req.params.id }, function (err, docs) {
         if(err){
             res.json({success:false, mes: errObj.validators(err)})
         }else{
             res.json({success: true, id: req.params.id, mes: req.params.id + 'was deleted'});
+
+            //mongoose remove bug. Fixed hack
+            docs.remove();
         }
     });
 });
 
-router.post('/post/addcomment/:post_id',
+router.post('/post/comments/:post_id',
     check('title')
         .trim() //username can't be space
         .exists().withMessage('title dones\'t exist')
@@ -168,7 +171,6 @@ router.post('/post/addcomment/:post_id',
             return;
         }
         validPostData.post_id = req.params.post_id;
-
 
         let comment = new Comment({
             authorId: validPostData.user_id,
