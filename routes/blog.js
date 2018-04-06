@@ -137,7 +137,7 @@ router.delete('/post/delete/:id', (req, res) => {
     });
 });
 
-router.post('/post/addcomment/:post_id',
+router.post('/post/comments/:post_id',
     check('title')
         .trim() //username can't be space
         .exists().withMessage('title dones\'t exist')
@@ -171,7 +171,6 @@ router.post('/post/addcomment/:post_id',
             return;
         }
         validPostData.post_id = req.params.post_id;
-
 
         let comment = new Comment({
             authorId: validPostData.user_id,

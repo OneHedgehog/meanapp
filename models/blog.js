@@ -40,9 +40,12 @@ blogSchema.virtual('comments', {
     foreignField: 'post_id'
 });
 
-
 blogSchema.post('remove', function() {
-    console.log(this);
+        this.model('Comment').remove( { post_id: this._id}, (err, docs)=>{
+            if(err){
+                console.log(err);
+            }
+        })
 });
 
 module.exports = mongoose.model('Blog', blogSchema);
