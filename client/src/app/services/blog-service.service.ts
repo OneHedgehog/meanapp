@@ -34,7 +34,7 @@ export class BlogServiceService {
     }
 
     public addPostComments(id: string, post_data: object): Observable<any>{
-        return this.http.post( this.devHost + '/blog/post/addcomment/' + id, post_data);
+        return this.http.post( this.devHost + '/blog/post/comments/' + id, post_data);
     }
 
     public getPostComments(id: string): Observable<any> {

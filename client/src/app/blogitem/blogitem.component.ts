@@ -68,8 +68,6 @@ export class BlogitemComponent implements OnInit {
           if(data){
             this.getPostComments();
           }
-          //this.isCommented.next(false);
-
       } )
     }
 }
