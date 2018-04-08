@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {BlogServiceService} from "../services/blog-service.service";
 import {AuthService} from "../services/auth.service";
 import {FlashMessagesService} from 'angular2-flash-messages';
+import {LikeService} from "../services/like.service";
 import {Subject} from "rxjs/Subject";
 
 @Component({
@@ -15,8 +16,6 @@ import {Subject} from "rxjs/Subject";
 export class BlogitemComponent implements OnInit {
     @Input() post;
     public isCommented: Subject<boolean> = new BehaviorSubject(false);
-    public likes: number;
-    public dislikes: number;
     public userId: string;
     public userName: string;
     public exist = true;
@@ -25,10 +24,18 @@ export class BlogitemComponent implements OnInit {
     constructor(private authService: AuthService,
                 private blogServiceService: BlogServiceService,
                 private router: Router,
+                private likeService: LikeService,
                 private _flashMessagesService: FlashMessagesService) {
     }
 
     ngOnInit() {
+        if(this.post.likes === null){
+            this.post.likes = [];
+        }
+        if(this.post.dislikes === null){
+            this.post.dislikes = [];
+        }
+       console.log(this.post);
         this.authService.getProfile()
             .subscribe((user: any) => {
                 if (user.success === false) {
@@ -39,9 +46,6 @@ export class BlogitemComponent implements OnInit {
                 this.userId = user.user._id;
                 this.userName = user.user.username;
             });
-
-        this.likes = this.post.likes.length;
-        this.dislikes = this.post.likes.length;
 
         this.getPostComments();
         this.updateComments();
@@ -68,6 +72,14 @@ export class BlogitemComponent implements OnInit {
           if(data){
             this.getPostComments();
           }
-      } )
+      } );
+    }
+    public addLike() {
+        const likeData = {
+            authorname: this.userName,
+        }
+        this.likeService.addLike(likeData, this.post._id).subscribe( (likedData) => {
+            console.log(likedData);
+        } );
     }
 }
