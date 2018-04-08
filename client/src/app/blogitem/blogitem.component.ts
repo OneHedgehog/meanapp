@@ -15,8 +15,6 @@ import {Subject} from "rxjs/Subject";
 export class BlogitemComponent implements OnInit {
     @Input() post;
     public isCommented: Subject<boolean> = new BehaviorSubject(false);
-    public likes: number;
-    public dislikes: number;
     public userId: string;
     public userName: string;
     public exist = true;
@@ -39,9 +37,6 @@ export class BlogitemComponent implements OnInit {
                 this.userId = user.user._id;
                 this.userName = user.user.username;
             });
-
-        this.likes = this.post.likes.length;
-        this.dislikes = this.post.likes.length;
 
         this.getPostComments();
         this.updateComments();
