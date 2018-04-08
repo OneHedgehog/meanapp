@@ -2,6 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from "rxjs/Observable";
 
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+
 @Injectable()
 export class LikeService {
 
@@ -10,8 +15,8 @@ export class LikeService {
     constructor(private http: HttpClient) {
     }
 
-    addLike(): Observable<any>{
-        return this.http.post(  this.devHost +  '/blog/posts') ;
+    addLike(likeData, post_id): Observable<any>{
+        return this.http.post(  this.devHost +  `/blog/post/like/${post_id}`, likeData, httpOptions) ;
     }
 
 }

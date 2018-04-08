@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import {BlogServiceService} from "../services/blog-service.service";
 import {AuthService} from "../services/auth.service";
 import {FlashMessagesService} from 'angular2-flash-messages';
+import {LikeService} from "../services/like.service";
 import {Subject} from "rxjs/Subject";
 
 @Component({
@@ -23,10 +24,18 @@ export class BlogitemComponent implements OnInit {
     constructor(private authService: AuthService,
                 private blogServiceService: BlogServiceService,
                 private router: Router,
+                private likeService: LikeService,
                 private _flashMessagesService: FlashMessagesService) {
     }
 
     ngOnInit() {
+        if(this.post.likes === null){
+            this.post.likes = [];
+        }
+        if(this.post.dislikes === null){
+            this.post.dislikes = [];
+        }
+       console.log(this.post);
         this.authService.getProfile()
             .subscribe((user: any) => {
                 if (user.success === false) {
@@ -63,6 +72,14 @@ export class BlogitemComponent implements OnInit {
           if(data){
             this.getPostComments();
           }
-      } )
+      } );
+    }
+    public addLike() {
+        const likeData = {
+            authorname: this.userName,
+        }
+        this.likeService.addLike(likeData, this.post._id).subscribe( (likedData) => {
+            console.log(likedData);
+        } );
     }
 }
