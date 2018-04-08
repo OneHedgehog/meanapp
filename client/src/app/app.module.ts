@@ -20,6 +20,7 @@ import { BlogItemComponentComponent } from './blog-item-component/blog-item-comp
 import { NewPostFormComponent } from './new-post-form/new-post-form.component';
 import { BlogServiceService } from './services/blog-service.service';
 import { CommentFormComponent } from './comment-form/comment-form.component';
+import {LikeService} from './services/like.service';
 
 
 @NgModule({
@@ -44,7 +45,7 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
       HttpClientModule,
       FlashMessagesModule.forRoot(),
   ],
-  providers: [AuthService, SharedService, BlogServiceService],
+  providers: [AuthService, SharedService, BlogServiceService, LikeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

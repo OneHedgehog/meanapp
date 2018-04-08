@@ -24,15 +24,13 @@ const commentSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
-    },
-    likes: [{
-        likedBy: String,
-        date: Date
-    }],
-    dislikes: [{
-        likedBy: String,
-        date: Date
-    }],
+    }
+}, { toJSON: { virtuals: true } });
+
+commentSchema.virtual('likes', {
+    ref: 'Like',
+    localField: '_id',
+    foreignField: 'comment_id'
 });
 
 
