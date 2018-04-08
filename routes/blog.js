@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Blog = require('../models/blog'); // Import User Model Schema
 const Comment = require('../models/comment');
+const Like = require('../models/like');
 
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
@@ -64,11 +65,10 @@ router.post('/create',
         }
 });
 
-
 router.get('/posts', (req,res) => {
     Blog.find({})
         .sort([['date', -1]])
-        .populate('comments')
+        .populate('likes')
         .exec( (err, data) =>{
         if(err){
             res.json({success:false, mes: errObj.validators(err)})
@@ -77,7 +77,6 @@ router.get('/posts', (req,res) => {
         }
     })
 });
-
 
 router.get('/post/:id', (req,res)=> {
     Blog.findOne({_id: req.params.id}, (err, post) => {
@@ -88,7 +87,6 @@ router.get('/post/:id', (req,res)=> {
         }
     })
 });
-
 
 router.put('/post/update/:id',
     check('title')
@@ -190,7 +188,6 @@ router.post('/post/comments/:post_id',
 
 });
 
-
 router.get('/post/comments/:post_id', (req, res) => {
 
     if(!req.params.post_id){
@@ -210,5 +207,36 @@ router.get('/post/comments/:post_id', (req, res) => {
     })
 });
 
+router.post('/post/like/:post_id',
+    check('authorname')
+        .trim() //username can't be space
+        .exists().withMessage('username dones\'t exist'),
+    (req, res)=> {
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let err =  errors.mapped();
+            let mes = errObj.validators(err);
+            res.json({success: false, error: mes});
+            return;
+        }
+
+        const validPostData = matchedData(req);
+        let like = new Like({
+            post_id: req.params.post_id,
+            likes: {
+                likedBy: validPostData.authorname
+            }
+        });
+
+        like.save( (err, likes) =>{
+            console.log(likes);
+            if(err){
+                res.json({success:false, mes: errObj.validators(err)})
+            }else{
+                res.json({success: true, likes: likes});
+            }
+        });
+});
 
 module.exports = router;

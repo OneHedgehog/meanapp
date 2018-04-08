@@ -21,21 +21,17 @@ const blogSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
-    },
-    likes: [{
-        likedBy: String,
-        date: Date
-    }],
-    dislikes: [{
-        likedBy: String,
-        date: Date
-    }],
+    }
 }, { toJSON: { virtuals: true } });
 
+blogSchema.virtual('likes', {
+    ref: 'Like',
+    localField: '_id',
+    foreignField: 'post_id'
+});
 
-// population
-blogSchema.virtual('comments', {
-    ref: 'Comment',
+blogSchema.virtual('dislikes', {
+    ref: 'Dislike',
     localField: '_id',
     foreignField: 'post_id'
 });
