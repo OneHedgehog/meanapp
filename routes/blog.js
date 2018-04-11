@@ -222,21 +222,41 @@ router.post('/post/like/:post_id',
         }
 
         const validPostData = matchedData(req);
-        let like = new Like({
-            post_id: req.params.post_id,
-            likes: {
-                likedBy: validPostData.authorname
+        if(!req.params.post_id){
+            res.json({success: false, mes: 'Invalid post_id'});
+            return;
+        }
+        validPostData.post_id = req.params.post_id;
+
+        Like.findOneAndRemove({
+            post_id: validPostData.post_id,
+            likedBy: validPostData.authorname
+        }, (err,likeData)=>{
+            if(err){
+                res.json({success:false, mes: 'db error'});
+                return;
             }
+            if(likeData === null){
+                let like = new Like({
+                    post_id: req.params.post_id,
+                    likedBy: validPostData.authorname
+                });
+
+                like.save( (err, _like) =>{
+                    if(err){
+                        res.json({success:false, mes: errObj.validators(err)});
+                        return;
+                    }else{
+                        res.json({success: true, like: _like});
+                        return;
+                    }
+                });
+            }
+
         });
 
-        like.save( (err, likes) =>{
-            console.log(likes);
-            if(err){
-                res.json({success:false, mes: errObj.validators(err)})
-            }else{
-                res.json({success: true, likes: likes});
-            }
-        });
+
+
 });
 
 module.exports = router;

@@ -7,7 +7,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 //todo remove
-mongoose.set('debug', true);
+//mongoose.set('debug', true);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -35,7 +35,7 @@ export class BlogitemComponent implements OnInit {
         if(this.post.dislikes === null){
             this.post.dislikes = [];
         }
-       console.log(this.post);
+
         this.authService.getProfile()
             .subscribe((user: any) => {
                 if (user.success === false) {
@@ -78,8 +78,12 @@ export class BlogitemComponent implements OnInit {
         const likeData = {
             authorname: this.userName,
         }
-        this.likeService.addLike(likeData, this.post._id).subscribe( (likedData) => {
-            console.log(likedData);
+        this.likeService.addLike(likeData, this.post._id).subscribe( (likedData:any) => {
+            if(likedData.success === true){
+                this.post.likes.push(likedData.like);
+            }else{
+                this.post.likes.splice(-1,1);
+            }
         } );
     }
 }
