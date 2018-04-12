@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Router} from "@angular/router";
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 import {BlogServiceService} from "../services/blog-service.service";
 import {AuthService} from "../services/auth.service";
@@ -29,10 +29,10 @@ export class BlogitemComponent implements OnInit {
     }
 
     ngOnInit() {
-        if(this.post.likes === null){
+        if (this.post.likes === null) {
             this.post.likes = [];
         }
-        if(this.post.dislikes === null){
+        if (this.post.dislikes === null) {
             this.post.dislikes = [];
         }
 
@@ -62,28 +62,47 @@ export class BlogitemComponent implements OnInit {
 
     public getPostComments() {
         this.blogServiceService.getPostComments(this.post._id)
-            .subscribe( (comments: any) => {
+            .subscribe((comments: any) => {
                 this.comments = comments;
             });
     }
 
-    public updateComments(){
-      this.isCommented.subscribe( (data: boolean) => {
-          if(data){
-            this.getPostComments();
-          }
-      } );
+    public updateComments() {
+        this.isCommented.subscribe((data: boolean) => {
+            if (data) {
+                this.getPostComments();
+            }
+        });
     }
+
     public addLike() {
         const likeData = {
             authorname: this.userName,
         }
-        this.likeService.addLike(likeData, this.post._id).subscribe( (likedData:any) => {
-            if(likedData.success === true){
-                this.post.likes.push(likedData.like);
-            }else{
-                this.post.likes.splice(-1,1);
+        this.likeService.addLike(likeData, this.post._id).subscribe((likedData: any) => {
+            if (likedData.success === true) {
+                if (likedData.like === null) {
+                    this.post.likes.splice(-1, 1);
+                } else {
+                    this.post.likes.push(likedData.like);
+                }
             }
-        } );
+        });
+    }
+
+    public addDislike() {
+        const dislikeData = {
+            authorname: this.userName,
+        }
+        this.likeService.addDislike(dislikeData, this.post._id).subscribe((dislikedData: any) => {
+            if (dislikedData.success === true) {
+                console.log(dislikedData);
+                if (dislikedData.dislike === null) {
+                    this.post.dislikes.splice(-1, 1);
+                } else {
+                    this.post.dislikes.push(dislikedData.dislike);
+                }
+            }
+        });
     }
 }

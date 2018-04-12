@@ -19,4 +19,8 @@ export class LikeService {
         return this.http.post(  this.devHost +  `/blog/post/like/${post_id}`, likeData, httpOptions) ;
     }
 
+    addDislike(dislikeData, post_id): Observable<any>{
+        return this.http.post(  this.devHost +  `/blog/post/dislike/${post_id}`, dislikeData, httpOptions) ;
+    }
+
 }

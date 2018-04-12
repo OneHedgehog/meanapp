@@ -31,7 +31,7 @@
             </div>
           </div>
 
-          <button type="button" class="btn btn-outline-secondary"><i class="fas fa-thumbs-down"></i> {{post.dislikes.length}} </button>
+          <button type="button" class="btn btn-outline-secondary" (click)="addDislike()"><i class="fas fa-thumbs-down"></i> {{post.dislikes.length}} </button>
 
           <div class="btn-group dropup">
             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

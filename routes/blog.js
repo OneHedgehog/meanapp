@@ -3,6 +3,7 @@ const router = express.Router();
 const Blog = require('../models/blog'); // Import User Model Schema
 const Comment = require('../models/comment');
 const Like = require('../models/like');
+const Dislike = require('../models/dislike');
 
 const { check, validationResult } = require('express-validator/check');
 const { matchedData, sanitize } = require('express-validator/filter');
@@ -251,12 +252,64 @@ router.post('/post/like/:post_id',
                         return;
                     }
                 });
+            }else{
+                res.json({success: true, like: null});
             }
 
         });
-
-
-
 });
+
+
+router.post('/post/dislike/:post_id',
+    check('authorname')
+        .trim() //username can't be space
+        .exists().withMessage('username dones\'t exist'),
+    (req, res)=> {
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let err =  errors.mapped();
+            let mes = errObj.validators(err);
+            res.json({success: false, error: mes});
+            return;
+        }
+
+        const validPostData = matchedData(req);
+        if(!req.params.post_id){
+            res.json({success: false, mes: 'Invalid post_id'});
+            return;
+        }
+        validPostData.post_id = req.params.post_id;
+
+        Dislike.findOneAndRemove({
+            post_id: validPostData.post_id,
+            dislikedBy: validPostData.authorname
+        }, (err,dislikeData)=>{
+            if(err){
+                res.json({success:false, mes: 'db error'});
+                return;
+            }
+            console.log(dislikeData);
+            if(dislikeData === null){
+                let dislike = new Dislike({
+                    post_id: req.params.post_id,
+                    dislikedBy: validPostData.authorname
+                });
+
+                dislike.save( (err, _dislike) =>{
+                    if(err){
+                        res.json({success:false, mes: errObj.validators(err)});
+                        return;
+                    }else{
+                        res.json({success: true, dislike: _dislike});
+                        return;
+                    }
+                });
+            }else{
+                res.json({success: true, dislike: null});
+            }
+
+        });
+    });
 
 module.exports = router;
