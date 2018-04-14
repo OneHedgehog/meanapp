@@ -70,6 +70,7 @@ router.get('/posts', (req,res) => {
     Blog.find({})
         .sort([['date', -1]])
         .populate('likes')
+        .populate('dislikes')
         .exec( (err, data) =>{
         if(err){
             res.json({success:false, mes: errObj.validators(err)})

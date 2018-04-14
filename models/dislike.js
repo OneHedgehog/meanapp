@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const likeSchema = new Schema({
+const dislikeSchema = new Schema({
     comment_id: {
         type: String,
     },
@@ -17,4 +17,4 @@ const likeSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Dislike', likeSchema);
+module.exports = mongoose.model('Dislike', dislikeSchema);

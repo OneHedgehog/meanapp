@@ -29,6 +29,8 @@ export class BlogitemComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        console.log(this.post);
         if (this.post.likes === null) {
             this.post.likes = [];
         }
@@ -91,6 +93,7 @@ export class BlogitemComponent implements OnInit {
     }
 
     public addDislike() {
+        console.log(this.post.dislikes);
         const dislikeData = {
             authorname: this.userName,
         }
