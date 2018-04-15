@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { LikeService} from "../services/like.service";
 
 @Component({
   selector: 'app-blog-item-component',
@@ -8,9 +9,20 @@ import { Component, OnInit, Input } from '@angular/core';
 export class BlogItemComponentComponent implements OnInit {
 
    @Input() comment;
-  public constructor() { }
+  public constructor(
+      private likeService: LikeService
+  ) { }
 
   public ngOnInit() {
+
+  }
+
+  public addLike(){
+
+  }
+
+
+  public addDislike(){
 
   }
 

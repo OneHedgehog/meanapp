@@ -290,7 +290,7 @@ router.post('/post/dislike/:post_id',
                 res.json({success:false, mes: 'db error'});
                 return;
             }
-            console.log(dislikeData);
+
             if(dislikeData === null){
                 let dislike = new Dislike({
                     post_id: req.params.post_id,

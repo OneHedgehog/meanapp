@@ -81,7 +81,7 @@ export class BlogitemComponent implements OnInit {
         const likeData = {
             authorname: this.userName,
         }
-        this.likeService.addLike(likeData, this.post._id).subscribe((likedData: any) => {
+        this.likeService.addLike(likeData, this.post._id, 'post').subscribe((likedData: any) => {
             if (likedData.success === true) {
                 if (likedData.like === null) {
                     this.post.likes.splice(-1, 1);
@@ -97,7 +97,7 @@ export class BlogitemComponent implements OnInit {
         const dislikeData = {
             authorname: this.userName,
         }
-        this.likeService.addDislike(dislikeData, this.post._id).subscribe((dislikedData: any) => {
+        this.likeService.addDislike(dislikeData, this.post._id, 'post').subscribe((dislikedData: any) => {
             if (dislikedData.success === true) {
                 console.log(dislikedData);
                 if (dislikedData.dislike === null) {
