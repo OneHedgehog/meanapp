@@ -3,8 +3,6 @@ import {Router} from "@angular/router";
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 import {BlogServiceService} from "../services/blog-service.service";
-import {AuthService} from "../services/auth.service";
-import {FlashMessagesService} from 'angular2-flash-messages';
 import {LikeService} from "../services/like.service";
 import {Subject} from "rxjs/Subject";
 
@@ -15,39 +13,31 @@ import {Subject} from "rxjs/Subject";
 })
 export class BlogitemComponent implements OnInit {
     @Input() post;
+    @Input() user;
     public isCommented: Subject<boolean> = new BehaviorSubject(false);
     public userId: string;
     public userName: string;
     public exist = true;
     public comments = null;
 
-    constructor(private authService: AuthService,
+    constructor(
                 private blogServiceService: BlogServiceService,
                 private router: Router,
-                private likeService: LikeService,
-                private _flashMessagesService: FlashMessagesService) {
+                private likeService: LikeService) {
     }
 
     ngOnInit() {
-
-        console.log(this.post);
         if (this.post.likes === null) {
             this.post.likes = [];
         }
         if (this.post.dislikes === null) {
             this.post.dislikes = [];
         }
+        if(this.user !== null){
+            this.userId = this.user.user._id;
+            this.userName = this.user.user.username;
+        }
 
-        this.authService.getProfile()
-            .subscribe((user: any) => {
-                if (user.success === false) {
-                    localStorage.removeItem('user_id');
-                    this._flashMessagesService.show('You are logged out', {cssClass: 'alert-info', timeout: 1000});
-                    this.router.navigate(['/login']);
-                }
-                this.userId = user.user._id;
-                this.userName = user.user.username;
-            });
 
         this.getPostComments();
         this.updateComments();
@@ -63,6 +53,7 @@ export class BlogitemComponent implements OnInit {
     }
 
     public getPostComments() {
+        console.log(this.user);
         this.blogServiceService.getPostComments(this.post._id)
             .subscribe((comments: any) => {
                 this.comments = comments;
