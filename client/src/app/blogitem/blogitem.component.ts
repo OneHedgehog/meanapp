@@ -1,10 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Router} from "@angular/router";
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
 import {BlogServiceService} from "../services/blog-service.service";
-import {AuthService} from "../services/auth.service";
-import {FlashMessagesService} from 'angular2-flash-messages';
 import {LikeService} from "../services/like.service";
 import {Subject} from "rxjs/Subject";
 
@@ -15,38 +13,32 @@ import {Subject} from "rxjs/Subject";
 })
 export class BlogitemComponent implements OnInit {
     @Input() post;
+    @Input() user;
     public isCommented: Subject<boolean> = new BehaviorSubject(false);
     public userId: string;
     public userName: string;
     public exist = true;
     public comments = null;
 
-    constructor(private authService: AuthService,
+    constructor(
                 private blogServiceService: BlogServiceService,
                 private router: Router,
-                private likeService: LikeService,
-                private _flashMessagesService: FlashMessagesService) {
+                private likeService: LikeService) {
     }
 
     ngOnInit() {
-        if(this.post.likes === null){
+        if (this.post.likes === null) {
             this.post.likes = [];
         }
-        if(this.post.dislikes === null){
+        if (this.post.dislikes === null) {
             this.post.dislikes = [];
         }
-       console.log(this.post);
-        this.authService.getProfile()
-            .subscribe((user: any) => {
-                if (user.success === false) {
-                    localStorage.removeItem('user_id');
-                    this._flashMessagesService.show('You are logged out', {cssClass: 'alert-info', timeout: 1000});
-                    this.router.navigate(['/login']);
-                }
-                this.userId = user.user._id;
-                this.userName = user.user.username;
-            });
+        if(this.user !== null){
+            this.userId = this.user.user._id;
+            this.userName = this.user.user.username;
+        }
 
+        console.log(this.post.dislikes);
         this.getPostComments();
         this.updateComments();
     }
@@ -61,25 +53,51 @@ export class BlogitemComponent implements OnInit {
     }
 
     public getPostComments() {
+
         this.blogServiceService.getPostComments(this.post._id)
-            .subscribe( (comments: any) => {
+            .subscribe((comments: any) => {
+                console.log(comments);
                 this.comments = comments;
             });
     }
 
-    public updateComments(){
-      this.isCommented.subscribe( (data: boolean) => {
-          if(data){
-            this.getPostComments();
-          }
-      } );
+    public updateComments() {
+        this.isCommented.subscribe((data: boolean) => {
+            if (data) {
+                this.getPostComments();
+            }
+        });
     }
+
     public addLike() {
         const likeData = {
-            authorname: this.userName,
+            authorname: this.user.user.username,
         }
-        this.likeService.addLike(likeData, this.post._id).subscribe( (likedData) => {
-            console.log(likedData);
-        } );
+        this.likeService.addLike(likeData, this.post._id, 'post').subscribe((likedData: any) => {
+            if (likedData.success === true) {
+                if (likedData.like === null) {
+                    this.post.likes.splice(-1, 1);
+                } else {
+                    this.post.likes.push(likedData.like);
+                }
+            }
+        });
+    }
+
+    public addDislike() {
+        console.log(this.post.dislikes);
+        const dislikeData = {
+            authorname: this.user.user.username,
+        }
+        this.likeService.addDislike(dislikeData, this.post._id, 'post').subscribe((dislikedData: any) => {
+            if (dislikedData.success === true) {
+                console.log(dislikedData);
+                if (dislikedData.dislike === null) {
+                    this.post.dislikes.splice(-1, 1);
+                } else {
+                    this.post.dislikes.push(dislikedData.dislike);
+                }
+            }
+        });
     }
 }

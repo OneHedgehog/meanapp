@@ -33,5 +33,11 @@ commentSchema.virtual('likes', {
     foreignField: 'comment_id'
 });
 
+commentSchema.virtual('dislikes', {
+    ref: 'Dislike',
+    localField: '_id',
+    foreignField: 'comment_id'
+});
+
 
 module.exports = mongoose.model('Comment', commentSchema);

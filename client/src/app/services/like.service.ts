@@ -10,13 +10,17 @@ const httpOptions = {
 @Injectable()
 export class LikeService {
 
-    devHost: String = 'http://localhost:8080'
+    devHost: String = 'http://localhost:8080';
 
     constructor(private http: HttpClient) {
     }
 
-    addLike(likeData, post_id): Observable<any>{
-        return this.http.post(  this.devHost +  `/blog/post/like/${post_id}`, likeData, httpOptions) ;
+    addLike(likeData, id, mode): Observable<any>{
+        return this.http.post(  this.devHost +  `/blog/${mode}/like/${id}`, likeData, httpOptions) ;
+    }
+
+    addDislike(dislikeData, id, mode): Observable<any>{
+        return this.http.post(  this.devHost +  `/blog/${mode}/dislike/${id}`, dislikeData, httpOptions) ;
     }
 
 }

@@ -12,6 +12,7 @@ let errorProc = {
         let mes = 'validation err';
        for ( let prop in err){
           mes = err[prop].msg;
+          console.log( mes);
        }
        return mes;// last message
 
