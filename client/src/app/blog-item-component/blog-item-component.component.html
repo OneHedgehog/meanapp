@@ -7,7 +7,7 @@
   <p class="text-muted"><b>Username</b> {{comment.authorName}}</p>
   <hr>
   <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-outline-secondary"><i class="fas fa-thumbs-up"></i> 3 </button>
+    <button type="button" class="btn btn-outline-secondary"  (click)="addLike()"><i class="fas fa-thumbs-up"></i> {{comment.likes.length}} </button>
 
     <div class="btn-group dropup">
       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <button type="button" class="btn btn-outline-secondary"><i class="fas fa-thumbs-down"></i> 5 </button>
+    <button type="button" class="btn btn-outline-secondary" (click)="addDislike()"><i class="fas fa-thumbs-down"></i> {{comment.dislikes.length}} </button>
 
     <div class="btn-group dropup">
       <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

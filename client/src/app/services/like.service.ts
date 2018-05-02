@@ -15,12 +15,12 @@ export class LikeService {
     constructor(private http: HttpClient) {
     }
 
-    addLike(likeData, post_id): Observable<any>{
-        return this.http.post(  this.devHost +  `/blog/post/like/${post_id}`, likeData, httpOptions) ;
+    addLike(likeData, id, mode): Observable<any>{
+        return this.http.post(  this.devHost +  `/blog/${mode}/like/${id}`, likeData, httpOptions) ;
     }
 
-    addDislike(dislikeData, post_id): Observable<any>{
-        return this.http.post(  this.devHost +  `/blog/post/dislike/${post_id}`, dislikeData, httpOptions) ;
+    addDislike(dislikeData, id, mode): Observable<any>{
+        return this.http.post(  this.devHost +  `/blog/${mode}/dislike/${id}`, dislikeData, httpOptions) ;
     }
 
 }

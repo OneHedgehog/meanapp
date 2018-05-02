@@ -160,16 +160,20 @@ router.post('/post/comments/:post_id',
         if (!errors.isEmpty()) {
             let err =  errors.mapped();
             let mes = errObj.validators(err);
+            console.log(errors);
             res.json({success: false, error: mes});
             return;
         }
 
         const validPostData = matchedData(req);
 
+
         if(!req.params.post_id){
             res.json({success: false, mes: 'Invalid post_id'});
             return;
         }
+
+
         validPostData.post_id = req.params.post_id;
 
         let comment = new Comment({
@@ -179,6 +183,7 @@ router.post('/post/comments/:post_id',
             title: validPostData.title,
             body: validPostData.content
         });
+
 
         comment.save( (err, comment) => {
             if(err){
@@ -198,6 +203,8 @@ router.get('/post/comments/:post_id', (req, res) => {
     }
     Comment
         .find( { post_id: req.params.post_id })
+        .populate('likes')
+        .populate('dislikes')
         .sort([['date', -1]])
         .exec((err, comments) => {
         if(err){
@@ -290,10 +297,113 @@ router.post('/post/dislike/:post_id',
                 res.json({success:false, mes: 'db error'});
                 return;
             }
-            console.log(dislikeData);
+
             if(dislikeData === null){
                 let dislike = new Dislike({
                     post_id: req.params.post_id,
+                    dislikedBy: validPostData.authorname
+                });
+
+                dislike.save( (err, _dislike) =>{
+                    if(err){
+                        res.json({success:false, mes: errObj.validators(err)});
+                        return;
+                    }else{
+                        res.json({success: true, dislike: _dislike});
+                        return;
+                    }
+                });
+            }else{
+                res.json({success: true, dislike: null});
+            }
+
+        });
+    });
+
+router.post('/comment/like/:comment_id',
+    check('authorname')
+        .trim() //username can't be space
+        .exists().withMessage('username dones\'t exist'),
+    (req, res)=> {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let err =  errors.mapped();
+            let mes = errObj.validators(err);
+            res.json({success: false, error: mes});
+            return;
+        }
+
+        const validPostData = matchedData(req);
+        if(!req.params.comment_id){
+            res.json({success: false, mes: 'Invalid post_id'});
+            return;
+        }
+        validPostData.comment_id = req.params.comment_id;
+
+        Like.findOneAndRemove({
+            comment_id: validPostData.comment_id,
+            likedBy: validPostData.authorname
+        }, (err,likeData)=>{
+            if(err){
+                res.json({success:false, mes: 'db error'});
+                return;
+            }
+
+            if(likeData === null){
+                let like = new Like({
+                    comment_id: req.params.comment_id,
+                    likedBy: validPostData.authorname
+                });
+
+                like.save( (err, _like) =>{
+                    if(err){
+                        res.json({success:false, mes: errObj.validators(err)});
+                        return;
+                    }else{
+                        res.json({success: true, like: _like});
+                        return;
+                    }
+                });
+            }else{
+                res.json({success: true, like: null});
+            }
+
+        });
+    });
+
+router.post('/comment/dislike/:comment_id',
+    check('authorname')
+        .trim() //username can't be space
+        .exists().withMessage('username dones\'t exist'),
+    (req, res)=> {
+        console.log('jk');
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            let err =  errors.mapped();
+            let mes = errObj.validators(err);
+            res.json({success: false, error: mes});
+            return;
+        }
+
+        const validPostData = matchedData(req);
+        if(!req.params.comment_id){
+            res.json({success: false, mes: 'Invalid post_id'});
+            return;
+        }
+        validPostData.comment_id = req.params.comment_id;
+
+        Dislike.findOneAndRemove({
+            comment_id: validPostData.comment_id,
+            dislikedBy: validPostData.authorname
+        }, (err,dislikeData)=>{
+            if(err){
+                res.json({success:false, mes: 'db error'});
+                return;
+            }
+
+            if(dislikeData === null){
+                let dislike = new Dislike({
+                    comment_id: req.params.comment_id,
                     dislikedBy: validPostData.authorname
                 });
 

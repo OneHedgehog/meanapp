@@ -11,9 +11,8 @@ import { BlogServiceService} from "../services/blog-service.service";
 })
 export class CommentFormComponent implements OnInit {
 
+    @Input() user;
   @Input() post_id;
-  @Input() user_id;
-  @Input() user_name;
 
   @Input() isCommented: BehaviorSubject<boolean>;
 
@@ -45,23 +44,24 @@ export class CommentFormComponent implements OnInit {
     }
 
     public onFormSubmit(){
-    console.log('submitted');
       const postData: object = {
           title: this.commentForm.get('title').value,
           content: this.commentForm.get('content').value,
-          user_id: this.user_id,
+          user_id: this.user.user._id,
           post_id: this.post_id,
-          user_name: this.user_name
+          user_name: this.user.user.username
       };
 
 
 
       this.blogService.addPostComments(this.post_id, postData)
           .subscribe( (data: any) => {
+              console.log('data', postData);
               if(data.success === false){
                     this.alertErr = data.mes;
               }else{
                   this.isCommented.next(true);
+
               }
 
           });

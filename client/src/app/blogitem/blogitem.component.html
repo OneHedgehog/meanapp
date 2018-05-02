@@ -27,7 +27,7 @@
             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             </button>
             <div class="dropdown-menu">
-              <!-- Dropdown menu links -->
+              <a class="dropdown-item" *ngFor="let like_name of post.likes">{{like_name.likedBy }}</a>
             </div>
           </div>
 
@@ -37,7 +37,7 @@
             <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             </button>
             <div class="dropdown-menu">
-              <!-- Dropdown menu links -->
+              <a class="dropdown-item" *ngFor="let dislike_name of post.dislikes">{{dislike_name.dislikedBy }}</a>
             </div>
           </div>
 
@@ -46,8 +46,8 @@
       <div class="col-md-9">
         <div class="list-group">
           <h4>Comment list</h4>
-          <app-comment-form [post_id]="post._id" [user_id]="userId" [user_name]="userName" [isCommented]="isCommented"></app-comment-form>
-          <app-blog-item-component *ngFor="let comment of comments" [comment]="comment" ></app-blog-item-component>
+          <app-comment-form [post_id]="post._id" [isCommented]="isCommented" [user]="user"></app-comment-form>
+          <app-blog-item-component *ngFor="let comment of comments" [comment]="comment" [user]="user"></app-blog-item-component>
         </div>
       </div>
     </div>

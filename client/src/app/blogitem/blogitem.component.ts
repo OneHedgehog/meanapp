@@ -38,7 +38,7 @@ export class BlogitemComponent implements OnInit {
             this.userName = this.user.user.username;
         }
 
-
+        console.log(this.post.dislikes);
         this.getPostComments();
         this.updateComments();
     }
@@ -53,9 +53,10 @@ export class BlogitemComponent implements OnInit {
     }
 
     public getPostComments() {
-        console.log(this.user);
+
         this.blogServiceService.getPostComments(this.post._id)
             .subscribe((comments: any) => {
+                console.log(comments);
                 this.comments = comments;
             });
     }
@@ -70,9 +71,9 @@ export class BlogitemComponent implements OnInit {
 
     public addLike() {
         const likeData = {
-            authorname: this.userName,
+            authorname: this.user.user.username,
         }
-        this.likeService.addLike(likeData, this.post._id).subscribe((likedData: any) => {
+        this.likeService.addLike(likeData, this.post._id, 'post').subscribe((likedData: any) => {
             if (likedData.success === true) {
                 if (likedData.like === null) {
                     this.post.likes.splice(-1, 1);
@@ -86,9 +87,9 @@ export class BlogitemComponent implements OnInit {
     public addDislike() {
         console.log(this.post.dislikes);
         const dislikeData = {
-            authorname: this.userName,
+            authorname: this.user.user.username,
         }
-        this.likeService.addDislike(dislikeData, this.post._id).subscribe((dislikedData: any) => {
+        this.likeService.addDislike(dislikeData, this.post._id, 'post').subscribe((dislikedData: any) => {
             if (dislikedData.success === true) {
                 console.log(dislikedData);
                 if (dislikedData.dislike === null) {
