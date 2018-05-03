@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LikeService} from '../services/like.service';
+import { BlogServiceService} from "../services/blog-service.service";
 
 @Component({
   selector: 'app-blog-item-component',
@@ -10,8 +11,11 @@ export class BlogItemComponentComponent implements OnInit {
 
    @Input() comment;
    @Input() user;
-  public constructor(
-      private likeService: LikeService
+   public deleted: Boolean= false;
+
+   public constructor(
+      private likeService: LikeService,
+      private blogServiceService: BlogServiceService
   ) { }
 
   public ngOnInit() {
@@ -49,5 +53,14 @@ export class BlogItemComponentComponent implements OnInit {
                 }
             }
         });
+    }
+
+    public deleteComment(){
+      this.blogServiceService.deletePostComments(this.comment.id)
+        .subscribe( (data: any) => {
+          if(data.success === true){
+            this.deleted = true;
+          };
+      })
     }
 }

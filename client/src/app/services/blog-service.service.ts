@@ -40,4 +40,8 @@ export class BlogServiceService {
     public getPostComments(id: string): Observable<any> {
         return this.http.get( this.devHost + '/blog/post/comments/' + id,);
     }
+
+  public deletePostComments(id: string): Observable<any> {
+    return this.http.delete( this.devHost + '/blog/post/comments/' + id,);
+  }
 }

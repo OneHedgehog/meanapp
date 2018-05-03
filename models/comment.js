@@ -40,4 +40,13 @@ commentSchema.virtual('dislikes', {
 });
 
 
+commentSchema.post('remove', function() {
+    this.model('Comment').remove( { comment_id: this._id}, (err, docs)=>{
+        if(err){
+            console.log(err);
+        }
+    })
+});
+
+
 module.exports = mongoose.model('Comment', commentSchema);

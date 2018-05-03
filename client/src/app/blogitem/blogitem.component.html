@@ -7,7 +7,7 @@
       <div class="col-lg-10">
         <h4 class="alert-heading">{{post.title}}</h4>
         <p>{{post.body}}</p>
-        <div *ngIf="userId == post.authorId">
+        <div *ngIf="user !== null && user.user._id == post.authorId">
           <button (click)="deleteBlog(post._id)" type="button" class="btn btn-outline-secondary"><i class="fas fa-trash-alt"></i>
           </button>
           <a routerLink="/blog/new-post/{{post._id}}" class="btn btn-outline-secondary"><i class="fas fa-pencil-alt"></i>

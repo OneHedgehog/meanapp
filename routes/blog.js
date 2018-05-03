@@ -423,4 +423,17 @@ router.post('/comment/dislike/:comment_id',
         });
     });
 
+router.delete('/post/comments/:id', (req, res) => {
+    Comment.findOneAndRemove({ _id: req.params.id }, function (err, docs) {
+        if(err){
+            res.json({success:false, mes: errObj.validators(err)})
+        }else{
+            res.json({success: true, id: req.params.id, mes: req.params.id + 'was deleted'});
+
+            //mongoose remove bug. Fixed hack
+            docs.remove();
+        }
+    });
+});
+
 module.exports = router;
