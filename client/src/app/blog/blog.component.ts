@@ -5,6 +5,9 @@ import {AuthService} from "../services/auth.service";
 import {FlashMessagesService} from "angular2-flash-messages";
 import {Router} from "@angular/router";
 
+import { IResponse } from '../interface/i-response';
+import {IUser } from '../interface/i-user';
+
 @Component({
   selector: 'app-blog',
   templateUrl: './blog.component.html',
@@ -35,6 +38,7 @@ export class BlogComponent implements OnInit {
                   this._flashMessagesService.show('You are logged out', {cssClass: 'alert-info', timeout: 1000});
                   this.router.navigate(['/login']);
               }
+
               this.userId = user.user._id;
               this.userName = user.user.username;
           });

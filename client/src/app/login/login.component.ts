@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService} from '../services/auth.service';
 import { SharedService} from "../services/shared.service";
 
+import {IResponse} from "../interface/i-response";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -53,7 +55,7 @@ export class LoginComponent implements OnInit {
           password: this.form.get('password').value
       };
     this.authService.login(user)
-        .subscribe( (userData) => {
+        .subscribe( (userData : IResponse) => {
             let data: any = userData;
             this.submitted = true;
             if(data['error']){
