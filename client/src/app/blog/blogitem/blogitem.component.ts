@@ -2,8 +2,8 @@ import {Component, OnInit, Input} from '@angular/core';
 import {Router} from "@angular/router";
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
-import {BlogServiceService} from "../services/blog-service.service";
-import {LikeService} from "../services/like.service";
+import {BlogServiceService} from "../../services/blog-service.service";
+import {LikeService} from "../../services/like.service";
 import {Subject} from "rxjs/Subject";
 
 @Component({

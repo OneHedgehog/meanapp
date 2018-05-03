@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { LikeService} from '../services/like.service';
-import { BlogServiceService} from "../services/blog-service.service";
+import { LikeService} from '../../../services/like.service';
+import { BlogServiceService} from "../../../services/blog-service.service";
 
 @Component({
   selector: 'app-blog-item-component',

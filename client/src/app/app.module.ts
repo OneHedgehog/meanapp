@@ -15,11 +15,11 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SharedService} from './services/shared.service';
 import { BlogComponent } from './blog/blog.component';
-import { BlogitemComponent } from './blogitem/blogitem.component';
-import { BlogItemComponentComponent } from './blog-item-component/blog-item-component.component';
-import { NewPostFormComponent } from './new-post-form/new-post-form.component';
+import { BlogitemComponent } from './blog/blogitem/blogitem.component';
+import { BlogItemComponentComponent } from './blog/blogitem/blog-item-component/blog-item-component.component';
+import { NewPostFormComponent } from './blog/new-post-form/new-post-form.component';
 import { BlogServiceService } from './services/blog-service.service';
-import { CommentFormComponent } from './comment-form/comment-form.component';
+import { CommentFormComponent } from './blog/blogitem/comment-form/comment-form.component';
 import {LikeService} from './services/like.service';
 
 

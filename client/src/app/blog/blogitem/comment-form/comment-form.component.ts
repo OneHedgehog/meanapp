@@ -2,7 +2,7 @@ import { Component,  EventEmitter, OnInit, Input, Output } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { BlogServiceService} from "../services/blog-service.service";
+import { BlogServiceService} from "../../../services/blog-service.service";
 
 @Component({
   selector: 'app-comment-form',

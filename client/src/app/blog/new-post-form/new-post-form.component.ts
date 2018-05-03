@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 
-import { AuthService} from "../services/auth.service";
-import { BlogServiceService} from "../services/blog-service.service";
+import { AuthService} from "../../services/auth.service";
+import { BlogServiceService} from "../../services/blog-service.service";
 
 
 @Component({
