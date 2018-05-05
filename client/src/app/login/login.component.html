@@ -1,7 +1,10 @@
 <div *ngIf="submitted" class="alert {{cssclass}}" role="alert">
   {{ mes  }}
 </div>
-<form [formGroup]="form" (ngSubmit)="onLoginSubmit()">
+<form [formGroup]="form" (ngSubmit)="onLoginSubmit()" class="form-signin col-lg-10 meanapp-center">
+  <div class="text-center mb-4">
+    <h1 class="h3 mb-3 font-weight-normal">Login form</h1>
+  </div>
   <div class="form-row">
     <div class="col-md-12 mb-12">
       <label for="username">Username</label>
@@ -17,7 +20,7 @@
     </div>
     <div class="col-md-12 mb-12">
       <label for="password">Password</label>
-      <input type="text" class="form-control" [ngClass]="{ 'is-invalid' : form.controls.password.errors && form.controls.password.dirty, 'is-valid' : !form.controls.password.errors}" id="password" placeholder="password" formControlName="password" required>
+      <input type="password" class="form-control" [ngClass]="{ 'is-invalid' : form.controls.password.errors && form.controls.password.dirty, 'is-valid' : !form.controls.password.errors}" id="password" placeholder="password" formControlName="password" required>
       <ul class="valid-feedback">
         <li>valid password</li>
       </ul>
@@ -28,5 +31,7 @@
       </ul>
     </div>
   </div>
-  <button class="btn btn-primary" [disabled] = "form.status == 'INVALID'">Submit</button>
+  <p class="mt-3 mb-3 text-muted text-center">developed by <a href="">OneHedgehog</a></p>
+  <button class="btn btn-lg btn-success btn-block" [disabled] = "form.status == 'INVALID'">Log in</button>
+  <p class="mt-5 mb-3 text-muted text-center">© 2018-2019</p>
 </form>

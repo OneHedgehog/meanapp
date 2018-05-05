@@ -38,7 +38,6 @@ export class BlogitemComponent implements OnInit {
             this.userName = this.user.user.username;
         }
 
-        console.log(this.post.dislikes);
         this.getPostComments();
         this.updateComments();
     }
@@ -74,6 +73,7 @@ export class BlogitemComponent implements OnInit {
             authorname: this.user.user.username,
         }
         this.likeService.addLike(likeData, this.post._id, 'post').subscribe((likedData: any) => {
+            console.log(likedData);
             if (likedData.success === true) {
                 if (likedData.like === null) {
                     this.post.likes.splice(-1, 1);

@@ -30,11 +30,6 @@ export class CommentFormComponent implements OnInit {
 
     private createForm() {
         this.commentForm = this.formBuilder.group({
-            title: ['', Validators.compose([
-                Validators.required,
-                Validators.minLength(2),
-                Validators.maxLength(40),
-            ])],
             content: ['', Validators.compose([
                 Validators.required,
                 Validators.minLength(5),
@@ -45,7 +40,6 @@ export class CommentFormComponent implements OnInit {
 
     public onFormSubmit(){
       const postData: object = {
-          title: this.commentForm.get('title').value,
           content: this.commentForm.get('content').value,
           user_id: this.user.user._id,
           post_id: this.post_id,
@@ -56,7 +50,6 @@ export class CommentFormComponent implements OnInit {
 
       this.blogService.addPostComments(this.post_id, postData)
           .subscribe( (data: any) => {
-              console.log('data', postData);
               if(data.success === false){
                     this.alertErr = data.mes;
               }else{

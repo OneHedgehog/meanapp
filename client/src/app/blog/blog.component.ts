@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 
 import { IResponse } from '../interface/i-response';
 import {IUser } from '../interface/i-user';
+import { IPosts } from './interface/i-posts';
 
 @Component({
   selector: 'app-blog',
@@ -32,7 +33,7 @@ export class BlogComponent implements OnInit {
   public ngOnInit() {
       this.userObserve = this.authService.getProfile();
       this.userObserve
-          .subscribe((user: any) => {
+          .subscribe((user: IUser & IResponse) => {
               if (user.success === false) {
                   localStorage.removeItem('user_id');
                   this._flashMessagesService.show('You are logged out', {cssClass: 'alert-info', timeout: 1000});
@@ -44,7 +45,8 @@ export class BlogComponent implements OnInit {
           });
 
     this.blogServiceService.getPosts()
-        .subscribe( (postsData: any) => {
+        .subscribe( (postsData: IPosts & IResponse) => {
+            console.log(postsData);
           if(postsData.success === false){
             //redirect to errorPage
           }else{

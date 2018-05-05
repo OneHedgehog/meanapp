@@ -138,10 +138,6 @@ router.delete('/post/delete/:id', (req, res) => {
 });
 
 router.post('/post/comments/:post_id',
-    check('title')
-        .trim() //username can't be space
-        .exists().withMessage('title dones\'t exist')
-        .isLength({ min: 2, max: 200 }).withMessage('invalid title length'),
     check('user_name')
         .trim() //username can't be space
         .exists().withMessage('username dones\'t exist')

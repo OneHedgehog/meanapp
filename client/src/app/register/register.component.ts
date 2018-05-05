@@ -7,7 +7,7 @@ import { SharedService} from "../services/shared.service";
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css', '../common/common.css']
 })
 export class RegisterComponent implements OnInit {
     res;

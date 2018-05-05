@@ -19,8 +19,7 @@ export class BlogItemComponentComponent implements OnInit {
   ) { }
 
   public ngOnInit() {
-    console.log(this.comment);
-    console.log(this.user);
+
   }
 
     public addLike() {
