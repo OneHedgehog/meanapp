@@ -40,7 +40,7 @@ app.use('/profile', profile);
 app.use('/blog', blog);
 
 app.get('/', (req, res) =>{
-    res.sendFile((__dirname + '/client/dist/'));
+    res.sendFile(('/client/dist/'));
 });
 
 app.listen( process.env.PORT || 5000, ()=> {
