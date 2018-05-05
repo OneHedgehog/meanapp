@@ -5,7 +5,7 @@ import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class BlogServiceService {
-    private devHost:String = 'http://localhost:8080';
+    private devHost:String = 'http://localhost:500';
 
     public constructor(
         private http: HttpClient,

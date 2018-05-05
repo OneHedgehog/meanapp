@@ -10,7 +10,7 @@ const httpOptions = {
 @Injectable()
 export class AuthService {
 
-    devHost = 'http://localhost:8080';
+    devHost = 'http://localhost:500';
     authHeaders;
 
     constructor(private http: HttpClient,

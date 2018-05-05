@@ -43,7 +43,7 @@ app.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname + '/client/dist/'));
 });
 
-app.listen(8080, ()=> {
+app.listen(5000, ()=> {
     console.log('listend')
 
 });
