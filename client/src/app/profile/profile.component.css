@@ -1,0 +1,7 @@
+.user-detail{
+    margin-top: 40px;
+}
+.user-detail .img-thumbnail{
+    width: 200px;
+    height: 200px;
+}
