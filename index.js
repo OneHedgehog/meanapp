@@ -40,8 +40,8 @@ app.use('/profile', profile);
 app.use('/blog', blog);
 
 app.get('/', (req, res) =>{
-    res.sendFile(path.join('.' + __dirname + '/client/dist/'));
-    console.log(path.join('.' + __dirname + '/client/dist/'));
+    res.sendFile(path.join(__dirname + '/client/dist/'));
+    console.log('path', path.join('.' + __dirname + '/client/dist/'));
 });
 
 app.listen( process.env.PORT || 5000, ()=> {
