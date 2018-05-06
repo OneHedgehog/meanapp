@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const multer  = require('multer');
+const upload = multer({ dest: 'uploads/' });
 const User = require('../models/user'); // Import User Model Schema
 
 
@@ -41,6 +43,10 @@ router.get('/data', (req, res)=>{
         }
 
     } )
+});
+
+router.post('/data', (req, res)=>{
+    res.json({name: 'bad req'});
 });
 
 module.exports = router;

@@ -10,7 +10,7 @@ const httpOptions = {
 @Injectable()
 export class LikeService {
 
-    devHost: String = 'http://localhost:500';
+    devHost: String = 'http://localhost:5000';
 
     constructor(private http: HttpClient) {
     }

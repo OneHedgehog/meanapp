@@ -372,7 +372,6 @@ router.post('/comment/dislike/:comment_id',
         .trim() //username can't be space
         .exists().withMessage('username dones\'t exist'),
     (req, res)=> {
-        console.log('jk');
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             let err =  errors.mapped();

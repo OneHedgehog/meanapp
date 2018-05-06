@@ -19,7 +19,8 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    imagePath: String
 });
 
 userSchema.pre('save', function(next, done){

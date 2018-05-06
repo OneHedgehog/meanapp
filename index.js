@@ -7,7 +7,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 //todo remove
-//mongoose.set('debug', true);
+mongoose.set('debug', true);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,8 +40,7 @@ app.use('/login', login);
 app.use('/profile', profile);
 app.use('/blog', blog);
 
-app.get('/', (req, res) =>{
-    console.log('path', path.join('.' + __dirname + '/client/dist/'));
+app.get('*', (req, res) =>{
     res.sendFile(path.join(__dirname + '/client/dist/'));
 });
 

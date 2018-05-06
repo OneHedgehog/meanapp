@@ -10,7 +10,7 @@ const httpOptions = {
 @Injectable()
 export class AuthService {
 
-    devHost = 'http://localhost:500';
+    devHost = 'http://localhost:5000';
     authHeaders;
 
     constructor(private http: HttpClient,
@@ -50,7 +50,7 @@ export class AuthService {
 
     getProfile(): Observable<any> {
         this.createAuthHeaders();
-        return this.http.get(this.devHost + '/profile/data', this.authHeaders)
+        return this.http.get(this.devHost + '/profile/data', this.authHeaders);
     }
 
     logout() {
