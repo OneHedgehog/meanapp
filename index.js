@@ -7,7 +7,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 //todo remove
-mongoose.set('debug', true);
+//mongoose.set('debug', true);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,15 +33,16 @@ mongoose.connect(config.uri, (err)=>{
 
 app.use(cors());
 
-app.use(express.static(__dirname + '/client/dist/'));
+app.use(express.static(__dirname + '/client/dist'));
+
 app.use('/auth', auth);
 app.use('/login', login);
 app.use('/profile', profile);
 app.use('/blog', blog);
 
 app.get('/', (req, res) =>{
-    res.sendFile(path.join(__dirname + '/client/dist/'));
     console.log('path', path.join('.' + __dirname + '/client/dist/'));
+    res.sendFile(path.join(__dirname + '/client/dist/'));
 });
 
 app.listen( process.env.PORT || 5000, ()=> {
