@@ -4,7 +4,6 @@ import {Observable} from 'rxjs/Observable';
 
 const httpOptions = {
     headers: new HttpHeaders({
-        'Content-Type': 'multipart/form-data',
         'authid': localStorage.getItem('user_id')
     })
 };

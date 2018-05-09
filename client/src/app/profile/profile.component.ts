@@ -34,14 +34,10 @@ export class ProfileComponent implements OnInit {
 
     public onChangePhoto(event) {
         const formData = new FormData();
-        console.log(event.target.files);
-        console.log(event.target.files[0]);
         formData.append('photo', event.target.files[0], event.target.files[0].name);
 
         this.profileService.postPhoto(formData).subscribe( data => {
             console.log(data);
         });
-
-    }
 
 }
