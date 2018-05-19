@@ -1,7 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const multer  = require('multer');
-const upload = multer({ dest: 'uploads/' });
+
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '/client/src/assets/img')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+const upload = multer({ storage: storage });
 const User = require('../models/user'); // Import User Model Schema
 
 
@@ -46,6 +56,16 @@ router.get('/data', (req, res)=>{
 });
 
 router.post('/data', (req, res)=>{
+    let _upload =  upload.single('photo');
+    _upload(req, res, function (err) {
+
+        console.log(req);
+        if (err) {
+            // An error occurred when uploading
+            return
+        }
+
+    });
     res.json({name: 'bad req'});
 });
 
