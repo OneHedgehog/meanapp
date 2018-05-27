@@ -20,28 +20,35 @@ export class ProfileComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.authService.getProfile()
-            .subscribe(profileData => {
-                const data: any = profileData;
-                if (data.success === false) {
-                    this._flashMessagesService.show('You are logged out', {cssClass: 'alert-info', timeout: 1000});
-                    this.router.navigate(['/login']);
-                } else {
-                    this.user = data.user;
-                }
-            });
+        this.getProfile();
     }
 
     public onChangePhoto(event) {
         const formData = new FormData();
-        console.log(event.target.files);
-        console.log(event.target.files[0]);
         formData.append('photo', event.target.files[0], event.target.files[0].name);
 
-        this.profileService.postPhoto(formData).subscribe( data => {
-            console.log(data);
+        this.profileService.postPhoto(formData).subscribe( (data : any) => {
+            if(data.success === true) {
+              this.getProfile();
+              return;
+            }
+            this._flashMessagesService.show(data.mes, {cssClass: 'alert-info', timeout: 1000});
         });
 
+    }
+
+    private getProfile(){
+      this.authService.getProfile()
+        .subscribe(profileData => {
+          const data: any = profileData;
+          console.log(data);
+          if (data.success === false) {
+            this._flashMessagesService.show('You are logged out', {cssClass: 'alert-info', timeout: 1000});
+            this.router.navigate(['/login']);
+          } else {
+            this.user = data.user;
+          }
+        });
     }
 
 }
