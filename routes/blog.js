@@ -75,6 +75,7 @@ router.get('/posts', (req,res) => {
         if(err){
             res.json({success:false, mes: errObj.validators(err)})
         }else{
+            console.log(data);
             res.json({success: true, posts: data});
         }
     })

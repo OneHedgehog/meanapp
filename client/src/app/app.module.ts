@@ -4,6 +4,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule} from './app.routing-module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AmChartsModule } from '@amcharts/amcharts3-angular';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -22,6 +23,7 @@ import { BlogServiceService } from './services/blog-service.service';
 import { CommentFormComponent } from './blog/blogitem/comment-form/comment-form.component';
 import {LikeService} from './services/like.service';
 import {ProfileService} from './profile/services/profile.service';
+import {DashboardService} from './dashboard/services/dashboard.service';
 
 
 @NgModule({
@@ -40,13 +42,14 @@ import {ProfileService} from './profile/services/profile.service';
     CommentFormComponent
   ],
   imports: [
+      AmChartsModule,
       BrowserModule,
       AppRoutingModule,
       ReactiveFormsModule,
       HttpClientModule,
       FlashMessagesModule.forRoot(),
   ],
-  providers: [AuthService, SharedService, BlogServiceService, LikeService, ProfileService],
+  providers: [AuthService, SharedService, BlogServiceService, LikeService, ProfileService, DashboardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

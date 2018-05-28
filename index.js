@@ -20,9 +20,10 @@ const auth = require('./routes/auth');
 const login = require('./routes/login');
 const profile = require('./routes/profile');
 const blog = require('./routes/blog');
+const dashboard = require('./routes/dashboard');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.uri, (err)=>{
+mongoose.connect(config.local_uri, (err)=>{
     if(err){
         console.log('Connection err: ' + err);
         return;
@@ -37,8 +38,24 @@ app.use(express.static(__dirname + '/client/dist'));
 
 app.use('/auth', auth);
 app.use('/login', login);
+app.use( (req, res, next) => {
+    const id = req.headers.authid;
+
+    if(!id){
+        res.json({
+            success: false,
+            mes: 'empty id'
+        });
+        return;
+    }
+
+    req.user_id = id;
+    next();
+});
 app.use('/profile', profile);
 app.use('/blog', blog);
+app.use('/dashboard', dashboard);
+
 
 app.get('*', (req, res) =>{
     res.sendFile(path.join(__dirname + '/client/dist/'));

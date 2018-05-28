@@ -23,20 +23,6 @@ const upload = multer({ storage: storage });
 const User = require('../models/user'); // Import User Model Schema
 
 
-router.use( (req, res, next) => {
-    const id = req.headers.authid;
-
-    if(!id){
-        res.json({
-            success: false,
-            mes: 'empty id'
-        });
-        return;
-    }
-
-    req.user_id = id;
-    next();
-});
 
 router.get('/data', (req, res)=>{
     User.findOne( { _id: req.user_id }).select('username email imagePath').exec( (err,user)=>{
