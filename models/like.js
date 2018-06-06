@@ -17,4 +17,8 @@ const likeSchema = new Schema({
     }
 });
 
+likeSchema.pre('find', function() {
+    console.log('hjk', this.getQuery());
+});
+
 module.exports = mongoose.model('Like', likeSchema);

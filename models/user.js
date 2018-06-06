@@ -20,7 +20,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    imagePath: String
+    imagePath: {
+        type: String,
+        default: null
+    }
 });
 
 userSchema.pre('save', function(next, done){
