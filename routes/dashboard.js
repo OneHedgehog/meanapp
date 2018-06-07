@@ -6,16 +6,30 @@ const Dislike = require('../models/dislike');
 
 router.get('/', (req, res)=> {
     Like.find( {likedBy: req.query.username})
-        .sort({date: -1})
+        .sort({date: 1})
         .exec((err, data)=>{
        if(err){
            console.log(err);
            res.json({success: false, mes: 'db error'});
            return;
        }
+       let likes = countDayLikes(data);
+       Dislike.find( {dislikedBy: req.query.username})
+           .sort({date: 1})
+           .exec((err, data)=>{
+               if(err){
+                   console.log(err);
+                   res.json({success: false, mes: 'db error'});
+                   return;
+               }
+               let dislikes =  countDayLikes(data);
+               let resData = {
+                   likes: likes,
+                   dislikes: dislikes
+               };
+               res.json({success: true, mes: resData})
+           });
 
-       console.log(countDayLikes(data));
-       res.json({success: true, mes: countDayLikes(data)})
     });
 });
 
@@ -31,8 +45,8 @@ function countDayLikes(data){
             likesCount++;
         }else{
             response.push({
-                value: likesCount,
-                date: item.date
+                date: item.date,
+                value: likesCount
             });
             likesCount = 1;
         }
