@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
               return item;
             });
 
-            let likesChart = AmCharts.makeChart("likesChartdiv", {
+            let likesChart = this.AmCharts.makeChart("likesChartdiv", {
               "type": "serial",
               "theme": "light",
               "marginRight": 40,
@@ -101,7 +101,7 @@ export class DashboardComponent implements OnInit {
             });
 
 
-            let dislikesChart = AmCharts.makeChart("dislikesChartdiv", {
+            let dislikesChart = this.AmCharts.makeChart("dislikesChartdiv", {
               "type": "serial",
               "theme": "light",
               "marginRight": 40,

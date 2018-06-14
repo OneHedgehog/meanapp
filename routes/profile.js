@@ -14,7 +14,6 @@ let storage = multer.diskStorage({
         cb(null, `avatar-for-${user_id}.${fileExt}`)
         User.findOneAndUpdate({_id: user_id},  { $set: { imagePath: `/assets/img/avatar-for-${user_id}.${fileExt}` }}, (err, data)=>{
             if(err) console.log(err);
-            console.log('sdтитf');
         });
     }
 });
