@@ -36,6 +36,12 @@ blogSchema.virtual('dislikes', {
     foreignField: 'post_id'
 });
 
+blogSchema.virtual('author', {
+    ref: 'User',
+    localField: 'authorId',
+    foreignField: '_id' 
+});
+
 blogSchema.post('remove', function() {
         this.model('Comment').remove( { post_id: this._id}, (err, docs)=>{
             if(err){

@@ -6,7 +6,7 @@
             </div>
             <div class="row user-detail mt-6">
                 <div class="col-lg-12 col-sm-12 col-12">
-                    <img *ngIf="!user.imagePath" src="/assets/img/ninja.jpg" class="img-thumbnail mb-4">
+                    <img  *ngIf="!user.imagePath" src="/assets/img/ninja.jpg" class="img-thumbnail mb-4">
                   <img *ngIf="user.imagePath" [src]="user.imagePath" class="img-thumbnail mb-4">
                   <h5 *ngIf="user !== undefined">{{user.username}}</h5>
                     <p *ngIf="user !== undefined"><i class="fas fa-at"></i> {{user.email}}</p>
