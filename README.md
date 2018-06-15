@@ -6,4 +6,4 @@
 
 >feel free to test ii
 
-This is [meanappp](https://onehedgehog-meanapp.herokuapp.com/) inline link for test.
+This is [meanapp](https://onehedgehog-meanapp.herokuapp.com/) inline link for test.
