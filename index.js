@@ -23,7 +23,7 @@ const blog = require('./routes/blog');
 const dashboard = require('./routes/dashboard');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.local_uri, (err)=>{
+mongoose.connect(config.uri, (err)=>{
     if(err){
         console.log('Connection err: ' + err);
         return;
