@@ -4,6 +4,6 @@
 
 ## Test server
 
->feel free to test ii
+>feel free to test it
 
-This is [meanp](https://onehedgehog-meanapp.herokuapp.com/) inline link for test.
+This is [meanapp](https://onehedgehog-meanapp.herokuapp.com/) inline link for test.
