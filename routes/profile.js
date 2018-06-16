@@ -6,7 +6,7 @@ let user_id = "";
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'client/src/assets/img')
+        cb(null, 'client/dist/assets/img')
     },
     filename: function (req, file, cb) {
         if(user_id === "") return;
